@@ -1,1716 +1,1449 @@
-//Fri Jun 28 2024 06:21:17 GMT+0000 (Coordinated Universal Time)
+//Sun Jan 12 2025 12:13:45 GMT+0000 (Coordinated Universal Time)
 //Base:https://github.com/echo094/decode-js
 //Modify:https://github.com/smallfawn/decode_action
-const $ = new Env("顺丰速运"),
-  ckName = "sfsy_data",
-  userCookie = $.toObj($.isNode() ? process.env[ckName] : $.getdata(ckName)) || [];
-$.userIdx = 0;
-$.userList = [];
-$.notifyMsg = [];
-$.succCount = 0;
-const notify = $.isNode() ? require("./sendNotify") : "";
-$.is_debug = ($.isNode() ? process.env.IS_DEDUG : $.getdata("is_debug")) || "false";
-$.is_bee = ($.isNode() ? process.env.sfsy_bee : $.getdata("sfsy_bee")) || "false";
-$.is_account = ($.isNode() ? process.env.sliverkiss_account : $.getdata("sliverkiss_account")) || "false";
-$.unTaskList = ["完成连签7天", "参与积分活动", "每月累计寄件", "完成每月任务", "与好友微信分享会员福利", "DAILY_VIP_TASK_TYPE", "去新增一个收件偏好", "用行业模板寄件下单", "用积分兑任意礼品", "领任意生活特权福利", "设置你的顺丰ID"];
-async function main() {
-  if ($.userList.length > 5 && $.is_account == "false") {
-    return;
-  }
-  for (let _0x16bed4 of $.userList) {
-    try {
-      await _0x16bed4.refresh_cookie();
-      if (_0x16bed4.ckStatus) {
-        let {
-          usablePoint: _0x49b989
-        } = await _0x16bed4.queryUserInfo();
-        await _0x16bed4.superWelfare_receiveRedPacket();
-        await _0x16bed4.automaticSignFetchPackage();
-        await _0x16bed4.memberDay_index();
-        if ($.is_bee != "false") {
-          await _0x16bed4.bee_indexData();
+!function () {
+  var w = {
+    669: function (y, N, G) {
+      "use strict";
+
+      var M = {
+        f4: function () {
+          return O;
+        },
+        f5: function () {
+          return J;
+        },
+        f6: function () {
+          return E;
+        },
+        f7: function () {
+          return C;
+        },
+        f8: function () {
+          return K;
+        },
+        f9: function () {
+          return v;
+        },
+        ff: function () {
+          return H;
+        },
+        fA: function () {
+          return P;
         }
-        await _0x16bed4.coupon_list();
-        let _0x3bac91 = await _0x16bed4.queryUserInfo();
-        $.succCount++;
-        DoubleLog("[" + _0x16bed4.userName + "] 积分+" + (_0x3bac91?.["usablePoint"] - 0 - _0x49b989 ?? 0) + "  蜂蜜+" + ($.beeHoney ?? 0));
-      } else {
-        DoubleLog("⛔️ 「" + (_0x16bed4.userName ?? "账号" + index) + "」签到失败, 用户需要去登录");
+      };
+      G.d(N, M);
+      var W = G(376);
+      var x = G(980);
+      var S = G(606);
+      var U = G(554);
+      var Q = ["type__", "refer__", "ipcity__", "md5__", "decode__", "encode__", "time__", "timestamp__", "type__"];
+      var T = {};
+      function V(j) {
+        return j + "_dySig";
       }
-    } catch (_0x4c5880) {
-      throw _0x4c5880;
-    }
-  }
-  $.title = "共" + $.userList.length + "个账号,成功" + $.succCount + "个,失败" + ($.userList.length - 0 - $.succCount) + "个";
-  await sendMsg($.notifyMsg.join("\n"), {
-    $media: $.avatar
-  });
-}
-const _0x5ee1f2 = {
-  token: "wwesldfs29aniversaryvdld29",
-  sysCode: "MCS-MIMP-CORE",
-  channel: "wxwd26mem1"
-};
-class UserInfo {
-  constructor(_0x1398b2) {
-    this.index = ++$.userIdx;
-    this.token = "" || _0x1398b2.token || _0x1398b2;
-    this.sfsyUrl = _0x1398b2.token;
-    this.userId = "" || _0x1398b2.userId;
-    this.deviceId = randomPattern("xxxxxxxx-xxxx-xxxx");
-    this.memberDay_black = false;
-    this.memberDay_redPacket_drewToday = false;
-    this.memberDay_redPacket_map = {};
-    this.userIdList = [];
-    this.userName = _0x1398b2.userName;
-    this.avatar = _0x1398b2.avatar;
-    this.ckStatus = true;
-    this.baseUrl = "";
-    this.headers = {};
-    this.fetch = async _0x453f87 => {
-      try {
-        if (typeof _0x453f87 === "string") {
-          _0x453f87 = {
-            url: _0x453f87
-          };
+      var F = {
+        fw: function (j) {
+          return !!(0, S.fD)(V(j.host));
+        },
+        fR: function (j) {
+          (0, S.fy)(V(j.host), "true", 43200000);
+        },
+        un: function (j) {
+          return !((0, U.fN)(j) || j.host.match(/(cloudauth-device|captcha-(pro-)?open).*?\.aliyuncs\.com$/) || !F.fw(j));
+        },
+        fp: function (j) {
+          for (var k = 0, q = encodeURIComponent(j), I = 0; I < q.length; I++) {
+            k = (k << 7) - k + 398 + q.charCodeAt(I);
+            k |= 0;
+          }
+          return k;
+        },
+        uf: function (j, k) {
+          return !!F.un(j) && F.fu(j, k);
+        },
+        fG: function (j) {
+          if (T[j]) {
+            return T[j];
+          }
+          for (var k = 0, q = 0; q < j.length; q++) {
+            k += j[q].charCodeAt();
+          }
+          var I = Q[k % Q.length] + k % 10000;
+          return T[j] = I;
+        },
+        fL: function (j) {
+          var k = (0, U.fb)(j).host;
+          var k = F.fG(k);
+          return (0, U.fM)(j, k);
+        },
+        fu: function (j, k) {
+          var q = (0, U.fW)(j, true);
+          if (k) {
+            q += k;
+          }
+          k = F.fp(q) + "|" + (0, W.n)() + "|" + new Date().getTime() + "|1";
+          q = x.fh.ua(k, true);
+          k = {};
+          k[F.fG(j.host)] = q;
+          j.search = (0, U.fx)(j.search, k);
+          return (0, U.fW)(j);
         }
-        if (_0x453f87?.["url"]?.["startsWith"]("/") || _0x453f87?.["url"]?.["startsWith"](":")) {
-          _0x453f87.url = this.baseUrl + _0x453f87.url;
+      };
+      var P = F.uf;
+      F.fu;
+      var E = F.fL;
+      var O = F.fR;
+      var K = F.fG;
+      var v = 30;
+      var J = 0;
+      function C() {
+        J++;
+      }
+      function H(j) {
+        return -1 < j.indexOf("var".concat(" _0x2576")) && -1 < j.indexOf("duCiQ',".concat("'MOvsy")) || -1 < j.indexOf("function r(a".concat(",J)")) && -1 < j.indexOf("IunBRbfp7MLmwv6AckTt".concat("iY1jgrHZxGhlzW3aVPqEFN5J")) || -1 < j.indexOf("function e(l".concat(",m)")) && -1 < j.indexOf("6l9vPJp1BwS5GC".concat("Ae8L70NoszbtVcuhx3igmdrFf")) || -1 < j.indexOf("aliyun_".concat("waf_")) && -1 < j.indexOf("371ac51ab53".concat("fc53eb6bf9aa462a72e9f")) && -1 < j.indexOf("b63e746d3d0".concat("f33fa6ce3709868ba5f8b"));
+      }
+    },
+    540: function (y, N, p) {
+      "use strict";
+
+      var L = {
+        fS: function () {
+          return S;
+        },
+        fU: function () {
+          return U;
+        },
+        fQ: function () {
+          return Q;
+        },
+        fd: function () {
+          return x;
         }
-        const _0x31991c = {
-          ..._0x453f87,
-          headers: _0x453f87.headers || this.headers,
-          url: _0x453f87.url
+      };
+      p.r(N);
+      p.d(N, L);
+      var b = p(429);
+      var M = p(606);
+      var W = p(554);
+      var h = p(170);
+      var x = "acw_sc__v2";
+      function S(m, T) {
+        if (h.fm[h.fT] && (0, W.ft)(m, location.href)) {
+          Q(m, T);
+        }
+        (0, b.fV)(x, T, 3600000);
+      }
+      function U(m) {
+        return m + "_" + x;
+      }
+      function Q(m, T) {
+        m = (0, W.fb)(m).host;
+        (0, M.fy)(U(m), T);
+      }
+    },
+    721: function (y, N, u) {
+      var G = u(540).fS;
+      y.exports = {
+        fF: function (L, b) {
+          for (var M = JSON.parse("[15, 35, 29, 24, 33, 16, 1, 38, 10, 9, 19, 31, 40, 27, 22, 23, 25, 13, 6, 11,39,18,20,8, 14, 21, 32, 26, 2, 30, 7, 4, 17, 5, 3, 28, 34, 37, 12, 36]"), W = "3000176000856006061501533003690027800375", h = [], x = "", S = "", U = 0; U < L.length; U++) {
+            for (var Q = L[U], m = 0; m < M.length; m++) {
+              if (M[m] == U + 1) {
+                h[m] = Q;
+              }
+            }
+          }
+          for (x = h.join(""), U = 0; U < x.length && U < W.length; U += 2) {
+            var T = (parseInt(x.slice(U, U + 2), 16) ^ parseInt(W.slice(U, U + 2), 16)).toString(16);
+            if (1 == T.length) {
+              S += T = "0" + T;
+            } else {
+              S += T = T;
+            }
+          }
+          G(b, S);
+        }
+      };
+    },
+    170: function (y, N, G) {
+      "use strict";
+
+      var L = {
+        fm: function () {
+          return S;
+        },
+        fo: function () {
+          return b;
+        },
+        fP: function () {
+          return M;
+        },
+        fE: function () {
+          return W;
+        },
+        fT: function () {
+          return x;
+        },
+        fs: function () {
+          return h;
+        }
+      };
+      G.d(N, L);
+      var b = window;
+      var M = b.document;
+      var W = b.navigator;
+      var h = "2.1.5d";
+      var x = "xdomain";
+      var S = {
+        x: true
+      };
+      var U = M.currentScript;
+      if (!U) {
+        for (var Q = M.getElementsByTagName("script"), m = 0; m < Q.length; ++m) {
+          if ("6cc076e6727a87d6" == Q[m].getAttribute("id")) {
+            U = Q[m];
+            break;
+          }
+        }
+      }
+      if (U && "false" == U.getAttribute(x)) {
+        S[x] = false;
+      }
+    },
+    376: function (y, N, p) {
+      "use strict";
+
+      var L = {
+        n: function () {
+          return W;
+        }
+      };
+      p.d(N, L);
+      var b;
+      var M = p(170);
+      function W(h) {
+        function S(P) {
+          return P ? 1 : 0;
+        }
+        var U = "";
+        try {
+          U = M.fP.documentElement.getAttribute && M.fP.documentElement.getAttribute("webdriver");
+        } catch (P) {}
+        var Q;
+        var m = 0;
+        if (M.fo.hasOwnProperty) {
+          Object.keys(M.fP).forEach(function (E) {
+            var O = M.fo.document[E];
+            if (0 == E.indexOf("$cdc_asdjflasutopfhvcZLmcfl_") || O && O.hasOwnProperty("idPrefix_") && O.hasOwnProperty("cache_") && O.hasOwnProperty("nextId_")) {
+              m = 1;
+            }
+          });
+        }
+        if (1 != m) {
+          Q = new RegExp("^cdc_[a-zA-Z0-9]{22}_");
+          Object.keys(M.fo).forEach(function (E) {
+            "$chrome_asyncScriptInfo" != E && !Q.test(E) || (m = 1);
+          });
+        }
+        var T = new Date();
+        var V = 0;
+        T.toString = function () {
+          if (2 == ++V) {
+            return "";
+          }
         };
-        const _0x1f1611 = await Request(_0x31991c);
-        debug(_0x1f1611, _0x453f87?.["url"]?.["replace"](/\/+$/, "")["substring"](_0x453f87?.["url"]?.["lastIndexOf"]("/") + 1));
-        return _0x1f1611;
-      } catch (_0x18e12b) {
-        this.ckStatus = false;
-        $.log("[" + (this.userName || this.index) + "][ERROR] 请求发起失败!" + _0x18e12b + "\n");
+        if (b) {
+          b(T);
+        }
+        var F = 0;
+        var F = (F = (F = (F = (F = (F = (F = (F = (F = (F = (F = (F = (F = (F = (F = (F |= ((1 < V ? 1 : 0) ? 1 : 0) << 0) | S(M.fE.webdriver) << 1) | (m ? 1 : 0) << 2) | S(M.fo._phantom) << 3) | S(M.fo.callPhantom) << 4) | S(M.fo.phantom) << 5) | S(M.fo.spawn) << 6) | S(M.fo.emit) << 7 | (U ? 1 : 0) << 8) | S(M.fo.Buffer) << 9) | S(M.fo.domAutomation) << 10) | S(M.fo.webdriver) << 11) | S(M.fP.__webdriver_script_fn) << 12) | S(M.fo.fxdriver_id) << 13) | S(M.fo.__fxdriver_unwrapped) << 14) | S(M.fo.ClientUtils) << 15) | S(M.fo.__nightmare) << 16;
+        W = function () {
+          return F;
+        };
+        return F;
       }
-    };
-  }
-  async refresh_cookie() {
-    try {
-      const _0x31094a = {
-        url: this.sfsyUrl,
-        type: "get",
-        resultType: "all",
-        followRedirect: false
+      if (M.fo.console) {
+        b = M.fo.console.log.bind(M.fo.console);
+        M.fo.console.debug.bind(M.fo.console);
+      }
+    },
+    429: function (y, N, p) {
+      "use strict";
+
+      var u = {
+        fV: function () {
+          return b;
+        }
       };
-      let _0x3f5a16 = await this.fetch(_0x31094a),
-        _0x1bea50 = ObjectKeys2LowerCase(_0x3f5a16?.["headers"]),
-        _0x478f9f = getQueries(_0x1bea50.location);
-      debug(_0x478f9f);
-      if (_0x3f5a16.status != 302) {
-        throw "登录失败";
+      p.d(N, u);
+      var G = p(554);
+      var L = p(170);
+      function b(M, W, h, x) {
+        var x = x || (0, G.cd)();
+        var S = "number" == typeof h ? ((S = new Date()).setTime(S.getTime() + h), S.toGMTString()) : h;
+        L.fP.cookie = M + "=" + W + ";expires=" + S + ";path=/;domain=" + x;
       }
-      this.userName = _0x478f9f.mobile;
-      $.log("[" + (this.userName || this.index) + "][INFO] 登录成功");
-      return _0x478f9f;
-    } catch (_0x1868e4) {
-      this.ckStatus = false;
-      $.log("[" + (this.userName || this.index) + "][ERROR] " + _0x1868e4 + "\n");
-    }
-  }
-  getSign(_0x1f30dc = _0x5ee1f2) {
-    let _0xca45f7 = Date.now(),
-      {
-        token: _0x11283d,
-        sysCode: _0x1966ab,
-        channel: _0x3a5f23
-      } = _0x1f30dc,
-      _0x333657 = "token=" + _0x11283d + "&timestamp=" + _0xca45f7 + "&sysCode=" + _0x1966ab,
-      _0x353638 = $.CryptoJS.MD5(_0x333657).toString($.CryptoJS.enc.Hex);
-    const _0x315559 = {
-      platform: "MINI_PROGRAM",
-      channel: _0x3a5f23,
-      sysCode: _0x1966ab,
-      timestamp: _0xca45f7,
-      signature: _0x353638
-    };
-    return _0x315559;
-  }
-  async queryUserInfo() {
-    try {
-      const _0x241c0a = {
-        url: "https://mcs-mimp-web.sf-express.com/mcs-mimp/commonPost/~memberIntegral~userInfoService~queryUserInfo",
-        type: "post",
-        headers: {
-          ...this.getSign()
+    },
+    980: function (y, N, p) {
+      "use strict";
+
+      var G = {
+        fh: function () {
+          return b;
+        }
+      };
+      p.d(N, G);
+      var L;
+      L = {
+        ua: function (M, W) {
+          if (null == M) {
+            return "";
+          }
+          var S = L.uu(M, 6, function (m) {
+            return "DGi0YA7BemWnQjCl4+bR3f8SKIF9tUz/xhr2oEOgPpac=61ZqwTudLkM5vHyNXsVJ".charAt(m);
+          });
+          if (W) {
+            return S;
+          }
+          switch (S.length % 4) {
+            default:
+              {}
+            case 0:
+              {
+                return S;
+              }
+            case 1:
+              {
+                return S + "===";
+              }
+            case 2:
+              {
+                return S + "==";
+              }
+            case 3:
+              {
+                return S + "=";
+              }
+          }
         },
-        dataType: "json",
-        body: {
-          sysCode: "ESG-CEMP-CORE",
-          optionalColumns: ["usablePoint", "cycleSub", "leavePoint"],
-          token: "zeTLTYeG0bLetfRk"
-        }
-      };
-      let _0x1256c3 = await this.fetch(_0x241c0a);
-      if (_0x1256c3.success) {
-        const {
-            usablePoint: _0x3d2df2,
-            cycleSub: _0xf1ccaa,
-            leavePoint: _0x2d8b77,
-            pointClearCycle: _0xb958b9
-          } = _0x1256c3.obj,
-          _0x3a7573 = this.userName || this.index;
-        let _0x57b12b = "[" + _0x3a7573 + "][INFO] 积分: " + _0x3d2df2;
-        const _0x47460e = _0x2d8b77 - _0xf1ccaa,
-          _0x4a1647 = new Date(_0xb958b9 + " 00:00:00");
-        _0x4a1647.setFullYear(_0x4a1647.getFullYear() + 1);
-        _0x47460e > 0 && _0x4a1647.getTime() > Date.now() && (_0x57b12b += ", 有" + _0x47460e + "积分将在" + _0x4a1647.toLocaleDateString("zh-CN") + "过期");
-        $.log(_0x57b12b);
-      }
-      return _0x1256c3.obj;
-    } catch (_0x5e2037) {
-      this.ckStatus = false;
-      $.log("[" + (this.userName || this.index) + "][ERROR] " + _0x5e2037 + "\n");
-    }
-  }
-  async superWelfare_receiveRedPacket() {
-    try {
-      const _0x30b3c7 = {
-        url: "https://mcs-mimp-web.sf-express.com/mcs-mimp/commonPost/~memberActLengthy~redPacketActivityService~superWelfare~receiveRedPacket",
-        type: "post",
-        headers: {
-          ...this.getSign()
-        },
-        dataType: "json",
-        body: {
-          channel: "czflqdlhbxcx"
-        }
-      };
-      let _0x3397f9 = await this.fetch(_0x30b3c7);
-      if (_0x3397f9.success) {
-        let _0x11d053 = _0x3397f9.obj.giftList;
-        if (_0x3397f9.obj.extraGiftList?.["length"]) {
-          _0x11d053 = _0x11d053.concat(_0x3397f9.obj.extraGiftList);
-        }
-        const _0xf39a7e = _0x11d053.map(_0x51f3dc => _0x51f3dc.giftName).join(", "),
-          _0x143aa0 = _0x3397f9.obj.receiveStatus == 1 ? "领取成功" : "已领取过";
-        $.log("[" + (this.userName || this.index) + "][INFO] 超值福利签到[" + _0x143aa0 + "]: " + _0xf39a7e);
-      } else {
-        $.log("[" + (this.userName || this.index) + "][ERROR] 超值福利签到失败: " + (_0x3397f9.errorMessage || JSON.stringify(_0x3397f9) || "无返回"));
-      }
-    } catch (_0x1c0f12) {
-      this.ckStatus = false;
-      $.log("[" + (this.userName || this.index) + "][ERROR] " + _0x1c0f12 + "\n");
-    }
-  }
-  async automaticSignFetchPackage(_0x1a694a = {}) {
-    try {
-      const _0x14998e = {
-        url: "https://mcs-mimp-web.sf-express.com/mcs-mimp/commonPost/~memberNonactivity~integralTaskSignPlusService~automaticSignFetchPackage",
-        type: "post",
-        headers: {
-          ...this.getSign()
-        },
-        dataType: "json",
-        body: {
-          comeFrom: _0x1a694a.comeFrom || "vioin",
-          channelFrom: _0x1a694a.channelFrom || "SFAPP"
-        }
-      };
-      let _0x538948 = await this.fetch(_0x14998e);
-      if (!_0x538948?.["success"]) {
-        throw new Error("查询签到失败: " + (_0x538948.errorMessage || JSON.stringify(_0x538948) || "无返回"));
-      }
-      if (_0x538948.obj.hasFinishSign) {
-        $.log("[" + (this.userName || this.index) + "][INFO] 今天已签到");
-      } else {
-        if (_0x538948.obj.integralTaskSignPackageVOList?.["length"]) {
-          const _0x3d58cb = _0x538948.obj.integralTaskSignPackageVOList.map(_0x887b20 => _0x887b20.packetName).join(", ");
-          $.log("[" + (this.userName || this.index) + "][INFO] 签到获得: " + _0x3d58cb);
-        }
-      }
-      await this.queryPointTaskAndSignFromES();
-      const _0x4f393e = {
-        channelType: 3
-      };
-      await this.queryPointTaskAndSignFromES(_0x4f393e);
-      await this.queryUserInfo();
-    } catch (_0x27bae3) {
-      this.ckStatus = false;
-      $.log("[" + (this.userName || this.index) + "][ERROR] " + _0x27bae3 + "\n");
-    }
-  }
-  async queryPointTaskAndSignFromES(_0x4e67ea = {}) {
-    try {
-      const _0x3ea330 = {
-        url: "https://mcs-mimp-web.sf-express.com/mcs-mimp/commonPost/~memberNonactivity~integralTaskStrategyService~queryPointTaskAndSignFromES",
-        type: "post",
-        headers: {
-          ...this.getSign()
-        },
-        dataType: "json",
-        body: {
-          deviceId: this.deviceId,
-          channelType: String(_0x4e67ea.channelType || 1)
-        }
-      };
-      let _0x1cdfaa = await this.fetch(_0x3ea330);
-      if (!_0x1cdfaa?.["success"]) {
-        throw new Error("[" + (this.userName || this.index) + "][ERROR] 查询任务失败: " + (_0x1cdfaa.errorMessage || JSON.stringify(_0x1cdfaa) || "无返回"));
-      }
-      for (const _0x25b1a3 of _0x1cdfaa.obj.taskTitleLevels) {
-        switch (_0x25b1a3.status) {
-          case 2:
-            if ($.unTaskList.includes(_0x25b1a3.title)) {
+        uu: function (M, W, x) {
+          if (null == M) {
+            return "";
+          }
+          for (var S, U, Q, m, T = {}, V = {}, F = "", P = 2, E = 3, O = 2, K = [], v = 0, J = 0, C = 0; C < M.length; C += 1) {
+            Q = M.charAt(C);
+            Object.prototype.hasOwnProperty.call(T, Q) || (T[Q] = E++, V[Q] = true);
+            m = F + Q;
+            if (Object.prototype.hasOwnProperty.call(T, m)) {
+              F = m;
+            } else {
+              if (Object.prototype.hasOwnProperty.call(V, F)) {
+                if (F.charCodeAt(0) < 256) {
+                  for (S = 0; S < O; S++) {
+                    v <<= 1;
+                    J == W - 1 ? (J = 0, K.push(x(v)), v = 0) : J++;
+                  }
+                  for (U = F.charCodeAt(0), S = 0; S < 8; S++) {
+                    v = v << 1 | 1 & U;
+                    J == W - 1 ? (J = 0, K.push(x(v)), v = 0) : J++;
+                    U >>= 1;
+                  }
+                } else {
+                  for (U = 1, S = 0; S < O; S++) {
+                    v = v << 1 | U;
+                    J == W - 1 ? (J = 0, K.push(x(v)), v = 0) : J++;
+                    U = 0;
+                  }
+                  for (U = F.charCodeAt(0), S = 0; S < 16; S++) {
+                    v = v << 1 | 1 & U;
+                    J == W - 1 ? (J = 0, K.push(x(v)), v = 0) : J++;
+                    U >>= 1;
+                  }
+                }
+                if (0 == --P) {
+                  P = Math.pow(2, O);
+                  O++;
+                }
+                delete V[F];
+              } else {
+                for (U = T[F], S = 0; S < O; S++) {
+                  v = v << 1 | 1 & U;
+                  J == W - 1 ? (J = 0, K.push(x(v)), v = 0) : J++;
+                  U >>= 1;
+                }
+              }
+              if (0 == --P) {
+                P = Math.pow(2, O);
+                O++;
+              }
+              T[m] = E++;
+              F = String(Q);
+            }
+          }
+          if ("" !== F) {
+            if (Object.prototype.hasOwnProperty.call(V, F)) {
+              if (F.charCodeAt(0) < 256) {
+                for (S = 0; S < O; S++) {
+                  v <<= 1;
+                  J == W - 1 ? (J = 0, K.push(x(v)), v = 0) : J++;
+                }
+                for (U = F.charCodeAt(0), S = 0; S < 8; S++) {
+                  v = v << 1 | 1 & U;
+                  J == W - 1 ? (J = 0, K.push(x(v)), v = 0) : J++;
+                  U >>= 1;
+                }
+              } else {
+                for (U = 1, S = 0; S < O; S++) {
+                  v = v << 1 | U;
+                  J == W - 1 ? (J = 0, K.push(x(v)), v = 0) : J++;
+                  U = 0;
+                }
+                for (U = F.charCodeAt(0), S = 0; S < 16; S++) {
+                  v = v << 1 | 1 & U;
+                  J == W - 1 ? (J = 0, K.push(x(v)), v = 0) : J++;
+                  U >>= 1;
+                }
+              }
+              if (0 == --P) {
+                P = Math.pow(2, O);
+                O++;
+              }
+              delete V[F];
+            } else {
+              for (U = T[F], S = 0; S < O; S++) {
+                v = v << 1 | 1 & U;
+                J == W - 1 ? (J = 0, K.push(x(v)), v = 0) : J++;
+                U >>= 1;
+              }
+            }
+            if (0 == --P) {
+              P = Math.pow(2, O);
+              O++;
+            }
+          }
+          for (U = 2, S = 0; S < O; S++) {
+            v = v << 1 | 1 & U;
+            J == W - 1 ? (J = 0, K.push(x(v)), v = 0) : J++;
+            U >>= 1;
+          }
+          for (;;) {
+            v <<= 1;
+            if (J == W - 1) {
+              K.push(x(v));
               break;
             }
-            await this.finishTask(_0x25b1a3);
-          case 1:
-            await this.fetchIntegral(_0x25b1a3);
-            break;
-          case 3:
-            break;
-          default:
-            $.log("[" + (this.userName || this.index) + "][ERROR] 任务[" + _0x25b1a3.title + "] -- 未知状态[" + _0x25b1a3.status + "]");
-            break;
-        }
-      }
-    } catch (_0x489823) {
-      this.ckStatus = false;
-      $.log("[" + (this.userName || this.index) + "][ERROR] " + _0x489823 + "\n");
-    }
-  }
-  async finishTask(_0x313223) {
-    try {
-      const _0x55dbf4 = {
-        taskCode: _0x313223.taskCode
-      };
-      const _0x81a16b = {
-        url: "https://mcs-mimp-web.sf-express.com/mcs-mimp/commonRoutePost/memberEs/taskRecord/finishTask",
-        type: "post",
-        headers: {
-          ...this.getSign()
-        },
-        dataType: "json",
-        body: _0x55dbf4
-      };
-      let _0x49f1ac = await this.fetch(_0x81a16b);
-      if (!_0x49f1ac.success) {
-        throw new Error("完成任务[" + _0x313223.title + "]失败: " + (_0x49f1ac.errorMessage || JSON.stringify(_0x49f1ac) || "无返回"));
-      }
-      $.log("[" + (this.userName || this.index) + "][INFO] 完成任务[" + _0x313223.title + "]成功");
-    } catch (_0x4d36af) {
-      this.ckStatus = false;
-      $.log("[" + (this.userName || this.index) + "][ERROR] " + _0x4d36af + "\n");
-    }
-  }
-  async fetchIntegral(_0xa141e) {
-    try {
-      const _0x42d9ee = {
-        url: "https://mcs-mimp-web.sf-express.com/mcs-mimp/commonPost/~memberNonactivity~integralTaskStrategyService~fetchIntegral",
-        type: "post",
-        headers: {
-          ...this.getSign()
-        },
-        dataType: "json",
-        body: {
-          strategyId: _0xa141e.strategyId,
-          taskId: _0xa141e.taskId,
-          taskCode: _0xa141e.taskCode,
-          deviceId: this.deviceId
-        }
-      };
-      let _0x58f8cf = await this.fetch(_0x42d9ee);
-      if (!_0x58f8cf.success) {
-        throw new Error("领取任务[" + _0xa141e.title + "]奖励失败: " + (_0x58f8cf.errorMessage || JSON.stringify(_0x58f8cf) || "无返回"));
-      }
-      $.log("[" + (this.userName || this.index) + "][INFO] 领取任务[" + _0xa141e.title + "]奖励: " + _0x58f8cf.obj.point + "积分");
-    } catch (_0x4a1dd3) {
-      this.ckStatus = false;
-      $.log("[" + (this.userName || this.index) + "][ERROR] " + _0x4a1dd3 + "\n");
-    }
-  }
-  async memberDay_task(_0x318242 = {}) {
-    const _0x1bec08 = new Date().getDate();
-    if (_0x1bec08 >= 26 && _0x1bec08 <= 28) {
-      await this.memberDay_index();
-    }
-  }
-  async memberDay_index() {
-    try {
-      const _0x45c7b7 = {
-        url: "https://mcs-mimp-web.sf-express.com/mcs-mimp/commonPost/~memberNonactivity~memberDayIndexService~index",
-        type: "post",
-        headers: {
-          ...this.getSign()
-        },
-        dataType: "json",
-        body: {}
-      };
-      let _0x4a223d = await this.fetch(_0x45c7b7);
-      if (_0x4a223d?.["success"]) {
-        let {
-          lotteryNum = 0
-        } = _0x4a223d.obj || {};
-        await this.memberDay_redPacketReceivedStatus();
-        $.log("[" + (this.userName || this.index) + "][ERROR] 会员日可以抽奖" + lotteryNum + "次");
-        while (lotteryNum-- > 0) {
-          await this.memberDay_lottery();
-        }
-        if (this.memberDay_black) {
-          return;
-        }
-        await this.memberDay_taskList();
-        if (this.memberDay_black) {
-          return;
-        }
-        await this.memberDay_redPacketStatus();
-      } else {
-        const _0x3e3473 = _0x4a223d?.["errorMessage"] || (_0x4a223d ? JSON.stringify(_0x4a223d) : "无返回");
-        $.log("[" + (this.userName || this.index) + "][ERROR] 查询会员日失败: " + _0x3e3473);
-        _0x3e3473?.["includes"]("没有资格参与活动") && (this.memberDay_black = true, $.log("[" + (this.userName || this.index) + "][ERROR] 会员日任务风控"));
-      }
-    } catch (_0x172476) {
-      this.ckStatus = false;
-      $.log("[" + (this.userName || this.index) + "][ERROR] " + _0x172476 + "\n");
-    }
-  }
-  async memberDay_redPacketReceivedStatus() {
-    try {
-      const _0x1d9627 = {
-        url: "https://mcs-mimp-web.sf-express.com/mcs-mimp/commonPost/~memberNonactivity~memberDayTaskService~redPacketReceivedStatus",
-        type: "post",
-        headers: {
-          ...this.getSign()
-        },
-        dataType: "json",
-        body: {}
-      };
-      let _0x2a85a2 = await this.fetch(_0x1d9627);
-      if (_0x2a85a2?.["success"]) {
-        for (let _0x331535 of _0x2a85a2?.["obj"] || []) {
-          if (_0x331535.received) {
-            continue;
+            J++;
           }
-          let _0x453e01 = new Date().getHours();
-          if (_0x331535.receiveHour === _0x453e01) {
-            await this.memberDay_receiveRedPacket(_0x331535.receiveHour);
-          }
+          return K.join("");
         }
-      } else {
-        let _0x3fb90b = _0x2a85a2?.["errorMessage"] || (_0x2a85a2 ? JSON.stringify(_0x2a85a2) : "无返回");
-        $.log("[" + (this.userName || this.index) + "][ERROR] 会员日查询整点领红包失败: " + _0x3fb90b);
-        if (_0x3fb90b.includes("没有资格参与活动")) {
-          this.memberDay_black = true;
-          $.log("[" + (this.userName || this.index) + "][ERROR] 会员日任务风控");
+      };
+      var b = L;
+    },
+    606: function (y, N, p) {
+      "use strict";
+
+      var L = {
+        fD: function () {
+          return Q;
+        },
+        fy: function () {
+          return U;
         }
+      };
+      p.d(N, L);
+      var b = "||";
+      var M = undefined;
+      function W() {
+        this.storage = {};
       }
-    } catch (_0x533d54) {
-      this.ckStatus = false;
-      $.log("[" + (this.userName || this.index) + "][ERROR] " + _0x533d54 + "\n");
-    }
-  }
-  async memberDay_receiveRedPacket(_0x5f5635) {
-    try {
-      const _0x233940 = {
-        receiveHour: _0x5f5635
-      };
-      const _0x2e4fb0 = {
-        url: "https://mcs-mimp-web.sf-express.com/mcs-mimp/commonPost/~memberNonactivity~memberDayTaskService~receiveRedPacket",
-        type: "post",
-        headers: {
-          ...this.getSign()
-        },
-        dataType: "json",
-        body: _0x233940
-      };
-      let _0x492f8c = await this.fetch(_0x2e4fb0);
-      if (_0x492f8c?.["success"]) {
-        $.log("[" + (this.userName || this.index) + "][INFO] 会员日领取" + _0x5f5635 + "点红包成功");
-      } else {
-        let _0x212d12 = _0x492f8c?.["errorMessage"] || (_0x492f8c ? JSON.stringify(_0x492f8c) : "无返回");
-        $.log("[" + (this.userName || this.index) + "][ERROR] 会员日领取" + _0x5f5635 + "点红包失败: " + _0x212d12);
-        _0x212d12.includes("没有资格参与活动") && (this.memberDay_black = true, $.log("[" + (this.userName || this.index) + "][ERROR] 会员日任务风控"));
+      function h() {
+        return M = M || (function () {
+          try {
+            var V = "aliyun_waf_testLocalStorage";
+            localStorage.setItem(V, V);
+            localStorage.removeItem(V);
+            return 1;
+          } catch (F) {}
+        }() ? localStorage : new W());
       }
-    } catch (_0x57d4c2) {
-      this.ckStatus = false;
-      $.log("[" + (this.userName || this.index) + "][ERROR] " + _0x57d4c2 + "\n");
-    }
-  }
-  async memberDay_lottery() {
-    try {
-      const _0x276b2b = {
-        url: "https://mcs-mimp-web.sf-express.com/mcs-mimp/commonPost/~memberNonactivity~memberDayLotteryService~lottery",
-        type: "post",
-        headers: {
-          ...this.getSign()
-        },
-        dataType: "json",
-        body: {}
+      W.prototype.setItem = function (m, T) {
+        this.storage[m] = T;
       };
-      let _0x47164f = await this.fetch(_0x276b2b);
-      if (_0x47164f?.["success"]) {
-        let {
-          productName = "空气"
-        } = _0x47164f?.["obj"] || {};
-        const _0x3e3f6a = {
-          notify: true
+      W.prototype.getItem = function (m) {
+        return this.storage[m];
+      };
+      W.prototype.removeItem = function (m) {
+        delete this.storage[m];
+      };
+      var x = {};
+      function S(m, T) {
+        T = T || 1800000;
+        return m + b + (new Date().getTime() + T);
+      }
+      function U(m, T, V) {
+        var F = h();
+        T = S(T, V);
+        x[m] = T;
+        F.setItem(m, T);
+      }
+      function Q(m) {
+        var T;
+        var V;
+        var F = h();
+        var P = x[m] || F.getItem(m);
+        return P ? (V = (T = P.split(b))[1]) && new Date().getTime() > parseInt(V) ? (F.removeItem(m), delete x[m]) : (x[m] = P, T[0]) : (x[m] = S("", 300000), "");
+      }
+    },
+    554: function (y, N, G) {
+      "use strict";
+
+      var b = {
+        fN: function () {
+          return m;
+        },
+        fx: function () {
+          return Q;
+        },
+        ft: function () {
+          return V;
+        },
+        cd: function () {
+          return S;
+        },
+        fW: function () {
+          return T;
+        },
+        fb: function () {
+          return U;
+        },
+        fM: function () {
+          return F;
+        }
+      };
+      G.d(N, b);
+      var M = G(170);
+      var W = {};
+      var x = /^(ac\.cn|ac\.id|ah\.cn|bj\.cn|club\.tw|co\.id|co\.jp|co\.kr|co\.nz|co\.uk|com\.cn|com\.hk|com\.mo|com\.my|com\.sg|com\.tw|cq\.cn|ebiz\.tw|edu\.cn|edu\.hk|edu\.mo|edu\.tw|fj\.cn|game\.tw|gd\.cn|go\.id|gov\.cn|gov\.hk|gov\.mo|gov\.my|gov\.ph|gov\.tw|gs\.cn|gx\.cn|gz\.cn|ha\.cn|hb\.cn|he\.cn|hi\.cn|hk\.cn|hl\.cn|hn\.cn|idv\.hk|idv\.tw|jl\.cn|js\.cn|jx\.cn|ln\.cn|mil\.cn|mil\.tw|mo\.cn|net\.cn|net\.hk|net\.mo|net\.tw|nm\.cn|nx\.cn|org\.cn|org\.hk|org\.mo|org\.tw|qh\.cn|sc\.cn|sd\.cn|sh\.cn|sn\.cn|sx\.cn|tj\.cn|tw\.cn|us\.org|xj\.cn|xz\.cn|yn\.cn|zj\.cn)$/;
+      function S() {
+        var P;
+        var E;
+        var O = M.fP.location.host.split(":")[0];
+        W[O] ? O = W[O] : 2 < (E = (P = O.split(".")).length) && !/^(\d+\.)*\d+$/.test(O) && (O = P[E - 2] + "." + P[E - 1], x.test(O)) && (O = P[E - 3] + "." + O);
+        return O;
+      }
+      function U(P) {
+        var E = M.fP.createElement("div");
+        E.innerHTML = "<a></a>";
+        E.firstChild.href = P;
+        E.innerHTML = E.innerHTML;
+        (P = E.firstChild).href = E.firstChild.href;
+        return {
+          protocol: P.protocol,
+          host: P.host,
+          hostname: P.hostname,
+          port: P.port,
+          pathname: "/" === P.pathname.substr(0, 1) ? P.pathname : "/" + P.pathname,
+          search: P.search,
+          hash: P.hash,
+          fi: P.href
         };
-        $.log("[" + (this.userName || this.index) + "][INFO] 会员日抽奖: " + productName, _0x3e3f6a);
-      } else {
-        let _0x343cd9 = _0x47164f?.["errorMessage"] || (_0x47164f ? JSON.stringify(_0x47164f) : "无返回");
-        $.log("[" + (this.userName || this.index) + "][ERROR] 会员日抽奖失败: " + _0x343cd9);
-        if (_0x343cd9.includes("没有资格参与活动")) {
-          this.memberDay_black = true;
-          $.log("[" + (this.userName || this.index) + "][ERROR] 会员日任务风控");
-        }
       }
-    } catch (_0x32c696) {
-      this.ckStatus = false;
-      $.log("[" + (this.userName || this.index) + "][ERROR] " + _0x32c696 + "\n");
-    }
-  }
-  async memberDay_taskList() {
-    try {
-      const _0xd6977b = {
-        url: "https://mcs-mimp-web.sf-express.com/mcs-mimp/commonPost/~memberNonactivity~activityTaskService~taskList",
-        type: "post",
-        headers: {
-          ...this.getSign()
-        },
-        dataType: "json",
-        body: {
-          activityCode: "MEMBER_DAY",
-          channelType: "MINI_PROGRAM"
-        }
-      };
-      let _0x39c679 = await this.fetch(_0xd6977b);
-      if (_0x39c679?.["success"]) {
-        let _0x402431 = _0x39c679?.["obj"] || [];
-        for (let _0x3852b3 of _0x402431.filter(_0xa5cb50 => _0xa5cb50.status == 1)) {
-          if (this.memberDay_black) {
-            return;
-          }
-          await this.memberDay_fetchMixTaskReward(_0x3852b3);
-        }
-        for (let _0x6139df of _0x402431.filter(_0x46e068 => _0x46e068.status == 2)) {
-          if (this.memberDay_black) {
-            return;
-          }
-          switch (_0x6139df.taskType) {
-            case "SEND_SUCCESS":
-            case "INVITEFRIENDS_PARTAKE_ACTIVITY":
-            case "OPEN_SVIP":
-            case "OPEN_NEW_EXPRESS_CARD":
-            case "OPEN_FAMILY_CARD":
-            case "CHARGE_NEW_EXPRESS_CARD":
-            case "INTEGRAL_EXCHANGE":
-              break;
-            default:
-              for (let _0x3164e7 = 0; _0x3164e7 < _0x6139df.restFinishTime && !this.memberDay_black; _0x3164e7++) {
-                await this.memberDay_finishTask(_0x6139df);
+      function Q(P, E) {
+        if (0 != Object.keys(E).length) {
+          var O;
+          var K = "";
+          for (O in E) K += encodeURIComponent(O) + "=" + encodeURIComponent(E[O]) + "&";
+          K = K.slice(0, K.length - 1);
+          if (0 == P.length) {
+            P = "?" + K;
+          } else {
+            for (var v = P.slice(1).split("&"), J = [], C = Object.keys(E), H = 0; H < v.length; H++) {
+              O = decodeURIComponent(v[H].split("=", 1)[0]);
+              if (-1 == C.indexOf(O)) {
+                J.push(v[H]);
               }
-              break;
+            }
+            P = "?" + (0 == J.length ? "" : J.join("&") + "&") + K;
           }
         }
-      } else {
-        let _0x521474 = _0x39c679?.["errorMessage"] || (_0x39c679 ? JSON.stringify(_0x39c679) : "无返回");
-        $.log("[" + (this.userName || this.index) + "][ERROR] 查询会员日任务失败: " + _0x521474);
-        if (_0x521474.includes("没有资格参与活动")) {
-          this.memberDay_black = true;
-          $.log("[" + (this.userName || this.index) + "][ERROR] 会员日任务风控");
-        }
+        return P;
       }
-    } catch (_0x1e5450) {
-      this.ckStatus = false;
-      $.log("[" + (this.userName || this.index) + "][ERROR] " + _0x1e5450 + "\n");
-    }
-  }
-  async memberDay_fetchMixTaskReward(_0x2a9d18) {
-    try {
-      const _0x5bb957 = {
-        url: "https://mcs-mimp-web.sf-express.com/mcs-mimp/commonPost/~memberNonactivity~activityTaskService~fetchMixTaskReward",
-        type: "post",
-        headers: {
-          ...this.getSign()
-        },
-        dataType: "json",
-        body: {
-          taskType: _0x2a9d18.taskType,
-          activityCode: "MEMBER_DAY",
-          channelType: "MINI_PROGRAM"
-        }
-      };
-      let _0x4346ca = await this.fetch(_0x5bb957);
-      if (_0x4346ca?.["success"]) {
-        $.log("[" + (this.userName || this.index) + "][INFO] 领取会员日任务[" + _0x2a9d18.taskName + "]奖励成功");
-      } else {
-        let _0x38771c = _0x4346ca?.["errorMessage"] || (_0x4346ca ? JSON.stringify(_0x4346ca) : "无返回");
-        $.log("[" + (this.userName || this.index) + "][ERROR] 领取会员日任务奖励失败: " + _0x38771c);
-        _0x38771c.includes("没有资格参与活动") && (this.memberDay_black = true, $.log("[" + (this.userName || this.index) + "][ERROR] 会员日任务风控"));
+      function m(P) {
+        return !(!P.protocol || "data:" != P.protocol && "blob:" != P.protocol);
       }
-    } catch (_0x19e963) {
-      this.ckStatus = false;
-      $.log("[" + (this.userName || this.index) + "][ERROR] " + _0x19e963 + "\n");
-    }
-  }
-  async memberDay_finishTask(_0x983421) {
-    try {
-      const _0x854875 = {
-        taskCode: _0x983421.taskCode
-      };
-      const _0xa45251 = {
-        url: "https://mcs-mimp-web.sf-express.com/mcs-mimp/commonPost/~memberEs~taskRecord~finishTask",
-        type: "post",
-        headers: {
-          ...this.getSign()
-        },
-        dataType: "json",
-        body: _0x854875
-      };
-      let _0x233ecc = await this.fetch(_0xa45251);
-      if (_0x233ecc?.["success"]) {
-        $.log("[" + (this.userName || this.index) + "][INFO] 完成会员日任务[" + _0x983421.taskName + "]成功");
-        await this.memberDay_fetchMixTaskReward(_0x983421);
-      } else {
-        let _0x4b08c4 = _0x233ecc?.["errorMessage"] || (_0x233ecc ? JSON.stringify(_0x233ecc) : "无返回");
-        $.log("[" + (this.userName || this.index) + "][ERROR] 完成会员日任务[" + _0x983421.taskName + "]失败: " + _0x4b08c4);
-        _0x4b08c4.includes("没有资格参与活动") && (this.memberDay_black = true, $.log("[" + (this.userName || this.index) + "][ERROR] 会员日任务风控"));
-      }
-    } catch (_0x15a574) {
-      this.ckStatus = false;
-      $.log("[" + (this.userName || this.index) + "][ERROR] " + _0x15a574 + "\n");
-    }
-  }
-  async memberDay_redPacketStatus() {
-    try {
-      const _0x4263e7 = {
-        url: "https://mcs-mimp-web.sf-express.com/mcs-mimp/commonPost/~memberNonactivity~memberDayPacketService~redPacketStatus",
-        type: "post",
-        headers: {
-          ...this.getSign()
-        },
-        dataType: "json",
-        body: {}
-      };
-      let _0x3a4d0f = await this.fetch(_0x4263e7);
-      if (_0x3a4d0f?.["success"]) {
-        let {
-          drewToday: _0x439fe3,
-          packetList: _0x3f5438
-        } = _0x3a4d0f?.["obj"];
-        this.memberDay_redPacket_drewToday = _0x439fe3;
-        for (let _0xfac880 of _0x3f5438) {
-          this.memberDay_redPacket_map[_0xfac880.level] = _0xfac880.count;
+      function T(P, E) {
+        var O = m(P);
+        var K = P.pathname;
+        if (O && 0 == K.indexOf("/")) {
+          K = P.pathname.slice(1);
         }
-        let _0x44ede7 = 8;
-        for (let _0x4270ee = 1; _0x4270ee < _0x44ede7; _0x4270ee++) {
-          let _0xc1af18 = this.memberDay_redPacket_map[_0x4270ee] || 0;
-          while (_0xc1af18 >= 2) {
-            await this.memberDay_redPacketMerge(_0x4270ee);
-            _0xc1af18 -= 2;
+        return P.protocol + (O ? "" : "//" + P.host) + K + P.search + (E ? "" : P.hash);
+      }
+      function V(P, E) {
+        return M.fo.top !== M.fo.self || !(m(P = U(P)) || (E = U(E), P.host == E.host && P.protocol == E.protocol));
+      }
+      function F(P, E) {
+        if (-1 == P.indexOf(E + "=")) {
+          return P;
+        }
+        var H = U(P);
+        if (!H.search) {
+          return P;
+        }
+        var v = H.search.slice(1).split("&");
+        if (0 == v.length) {
+          return P;
+        }
+        for (var J = [], C = 0; C < v.length; ++C) {
+          if (0 != v[C].indexOf(E + "=")) {
+            J.push(v[C]);
           }
         }
-        let _0x229986 = [],
-          _0x14e894 = 0;
-        for (let _0x48a6af in this.memberDay_redPacket_map) {
-          if (!this.memberDay_redPacket_map[_0x48a6af]) {
-            continue;
+        0 == J.length ? H.search = "" : H.search = "?" + J.join("&");
+        return T(H);
+      }
+    }
+  };
+  var D = {};
+  function R(y) {
+    var N = D[y];
+    var p = {
+      exports: {}
+    };
+    undefined !== N || (N = D[y] = p, w[y](N, N.exports, R));
+    return N.exports;
+  }
+  R.d = function (y, N) {
+    for (var p in N) if (R.fc(N, p) && !R.fc(y, p)) {
+      Object.defineProperty(y, p, {
+        enumerable: true,
+        get: N[p]
+      });
+    }
+  };
+  R.fc = function (y, N) {
+    return Object.prototype.hasOwnProperty.call(y, N);
+  };
+  R.r = function (y) {
+    var N = {
+      value: true
+    };
+    if ("undefined" != typeof Symbol && Symbol.toStringTag) {
+      Object.defineProperty(y, Symbol.toStringTag, {
+        value: "Module"
+      });
+    }
+    Object.defineProperty(y, "__esModule", N);
+  };
+  !function () {
+    "use strict";
+
+    var AA = R(554);
+    var Aw = R(429);
+    var AD = R(980);
+    var AR = R(170);
+    var Ay = R(376);
+    function AN(wJ, wr, wC) {
+      for (var wH = 0, wl = wr, wj = wJ.length, wn = wC || 1; wl < wj;) {
+        wH = (wH = (wH << 5) - wH) + wJ.charCodeAt(wl) >>> 0;
+        wl += wn;
+      }
+      return wH;
+    }
+    AG = [];
+    AL = AR.fP.documentElement;
+    Ao = AL.doScroll;
+    Ab = "DOMContentLoaded";
+    Ax = "addEventListener";
+    AM = "onreadystatechange";
+    AW = "readyState";
+    Ah = (Ao ? /^loaded|^c/ : /^loaded|c/).test(AR.fP[AW]);
+    if (AR.fP[Ax]) {
+      AR.fP[Ax](Ab, Au = function () {
+        AR.fP.removeEventListener(Ab, Au, false);
+        AS();
+      }, false);
+    }
+    if (Ao) {
+      AR.fP.attachEvent(AM, Au = function () {
+        if (/^c/.test(AR.fP[AW])) {
+          AR.fP.detachEvent(AM, Au);
+          AS();
+        }
+      });
+    }
+    var Ap;
+    var Au;
+    var AG;
+    var AL;
+    var Ab;
+    var AM;
+    var AW;
+    var Ah;
+    Ao ? Ap = function (wJ) {
+      if (self != top) {
+        Ah ? wJ() : AG.push(wJ);
+      } else {
+        try {
+          AL.doScroll("left");
+        } catch (wC) {
+          return setTimeout(function () {
+            Ap(wJ);
+          }, 50);
+        }
+        wJ();
+      }
+    } : Ap = function (wJ) {
+      Ah ? wJ() : AG.push(wJ);
+    };
+    var Ax = Ap;
+    function AS(wJ) {
+      for (Ah = 1; wJ = AG.shift();) {
+        wJ();
+      }
+    }
+    var AU;
+    var AQ = false;
+    function Ad() {
+      if (AR.fo.aliyun_csp_inline_test) {
+        AQ = true;
+        delete AR.fo.aliyun_csp_inline_test;
+      }
+      AU.remove();
+      delete AR.fo.aliyun_csp_inline_test_func;
+    }
+    function Am(wJ) {
+      var wr = AR.fP.createElement("style");
+      wr.type = "text/css";
+      try {
+        wr.appendChild(AR.fP.createTextNode(wJ));
+      } catch (wC) {
+        wr.styleSheet.cssText = wJ;
+      }
+      return wr;
+    }
+    function AT() {
+      return AR.fP.head || AR.fP.getElementsByTagName("head")[0];
+    }
+    AU = document.createElement("script");
+    AR.fo.aliyun_csp_inline_test_func = AU.text = "window.aliyun_csp_inline_test = 1;aliyun_csp_inline_test_func()";
+    Ao = document.head.firstChild;
+    AR.fo.aliyun_csp_inline_test_func = Ad;
+    document.head.insertBefore(AU, Ao);
+    setTimeout(function () {
+      Ad();
+    }, 200);
+    if (!AR.fo._waf_async_initialized1) {
+      var AF;
+      var Ao = function (wJ, wr) {
+        var wk = 0;
+        return function () {
+          var wq = arguments;
+          var wI = Date.now();
+          if (wr <= wI - wk) {
+            wk = wI;
+            wJ.apply(this, wq);
           }
-          _0x229986.push("[" + _0x48a6af + "级]X" + this.memberDay_redPacket_map[_0x48a6af]);
-          let _0x8e3fb2 = parseInt(_0x48a6af);
-          if (_0x8e3fb2 < _0x44ede7) {
-            _0x14e894 += 1 << _0x8e3fb2 - 1;
+        };
+      };
+      AR.fo._waf_async_initialized1 = true;
+      var AP = new Date().getTime();
+      var AE = "websdk" + AR.fs;
+      var As = [];
+      var Ai = [];
+      var Ac = [];
+      var AO = [];
+      var AK = [];
+      var Aa = false;
+      if ("ontouchstart" in window || navigator.maxTouchPoints) {
+        Aa = true;
+      }
+      var Av = [0];
+      var AJ = (0, AA.cd)();
+      var Ar = Ao(function () {
+        (0, Aw.fV)("ssxmod_itna", Aa ? AD.fh.ua(As.join("^") + "M" + AO.length + "^" + AK.length + "^" + Av.length) : AD.fh.ua(As.join("^") + "P" + Ai.length + "^" + Ac.length + "^" + Av.length), wb, AJ);
+        (0, Aw.fV)("ssxmod_itna2", Aa ? AD.fh.ua(As.slice(0, 4).join("^") + "tm" + w0 + "|" + AO.join("|") + "tc" + w3 + "|" + AK.join("|") + "kb" + Av.join("|")) : AD.fh.ua(As.slice(0, 4).join("^") + "mm" + An + "|" + Ai.join("|") + "mc" + AZ + "|" + Ac.join("|") + "kb" + Av.join("|")), wb, AJ);
+      }, 60);
+      undefined !== AR.fP.hidden ? (AF = "hidden", Aq = "visibilitychange") : undefined !== AR.fP.mozHidden ? (AF = "mozHidden", Aq = "mozvisibilitychange") : undefined !== AR.fP.msHidden ? (AF = "msHidden", Aq = "msvisibilitychange") : undefined !== AR.fP.webkitHidden && (AF = "webkitHidden", Aq = "webkitvisibilitychange");
+      AR.fP.addEventListener && AF ? AR.fP.addEventListener(Aq, function () {
+        if (!AR.fP[AF] && 20 < As.length) {
+          As[20]++;
+        }
+      }) : AR.fP.attachEvent && AR.fP.attachEvent("on" + Aq, function () {
+        if (!AR.fP[AF] && 20 < As.length) {
+          As[20]++;
+        }
+      });
+      var AC = 0;
+      var AH = 0;
+      var Al = AP;
+      var Aj = 0;
+      var An = 0;
+      var Ak = !AR.fP.addEventListener && AR.fP.attachEvent;
+      var Aq = Ao(function (wJ) {
+        var wr;
+        var wC;
+        var wH;
+        var wl;
+        Aa || (Ak && (wJ = AR.fo.event), 100 < Aj && (wr = Ai[1].split("+"), wC = Ai[0].split("+"), Ai[1] = parseInt(wr[0]) + parseInt(wC[0]) + "+" + (parseInt(wr[1]) + parseInt(wC[1])) + "+" + (parseInt(wr[2]) + parseInt(wC[2])), Ai.shift()), Aj++, wr = wJ.pageX, wC = wJ.pageY, undefined === wr && (AR.fP.body ? wH = AR.fP.body.scrollLeft : wH = 0, AR.fP.body ? wl = AR.fP.body.scrollTop : wl = 0, wr = wJ.clientX + wH, wC = wJ.clientY + wl), wH = wr - AC, wJ = wC - AH, wl = new Date().getTime() - Al, 1 == Aj && (An = wl), As[3]++, Ai.push(wH + "+" + wJ + "+" + wl), Ar(), AC = wr, AH = wC, Al += wl);
+      }, 30);
+      AR.fP.addEventListener ? AR.fP.addEventListener("mousemove", Aq, true) : AR.fP.attachEvent && AR.fP.attachEvent("onmousemove", Aq);
+      var AI = AP;
+      var Az = 0;
+      var AZ = 0;
+      var Aq = function (wJ) {
+        var wr;
+        var wC;
+        var wH;
+        var wl;
+        Aa || (Ak && (wJ = AR.fo.event), 10 < Az && Ac.shift(), Az++, wH = wJ.pageX, wl = wJ.pageY, undefined === wH && (AR.fP.body ? wr = AR.fP.body.scrollLeft : wr = 0, AR.fP.body ? wC = AR.fP.body.scrollTop : wC = 0, wH = wJ.clientX + wr, wl = wJ.clientY + wC), wr = parseInt(wH), wC = parseInt(wl), wH = new Date().getTime() - AI, wl = wJ.which || 9, 1 == Az && (AZ = wH), As[3]++, Ac.push(wl + ("mousedown" == wJ.type ? "0" : "1") + "+" + wr + "+" + wC + "+" + wH), Ar(), AI += wH);
+      };
+      AR.fP.addEventListener ? (AR.fP.addEventListener("mousedown", Aq, true), AR.fP.addEventListener("mouseup", Aq, true)) : AR.fP.attachEvent && (AR.fP.attachEvent("onmousedown", Aq), AR.fP.attachEvent("onmouseup", Aq));
+      var AB = 0;
+      var Ag = 0;
+      var AX = AP;
+      var AY = 0;
+      var w0 = 0;
+      var Aq = Ao(function (wJ) {
+        var wr;
+        var wC;
+        var wH;
+        if (Aa = true) {
+          Ak && (wJ = AR.fo.event);
+          100 < AY && (wr = AO[1].split("+"), wC = AO[0].split("+"), AO[1] = parseInt(wr[0]) + parseInt(wC[0]) + "+" + (parseInt(wr[1]) + parseInt(wC[1])) + "+" + (parseInt(wr[2]) + parseInt(wC[2])), AO.shift());
+          AY++;
+          wr = parseInt(wJ.touches[0].pageX) - AB;
+          wC = parseInt(wJ.touches[0].pageY) - Ag;
+          wH = new Date().getTime() - AX;
+          As[3]++;
+          AO.push(wr + "+" + wC + "+" + wH);
+          1 == AY && (w0 = wH);
+          Ar();
+          AB = parseInt(wJ.touches[0].pageX);
+          Ag = parseInt(wJ.touches[0].pageY);
+          AX += wH;
+        }
+      }, 30);
+      AR.fP.addEventListener ? AR.fP.addEventListener("touchmove", Aq, true) : AR.fP.attachEvent && AR.fP.attachEvent("ontouchmove", Aq);
+      var w1 = AP;
+      var w2 = 0;
+      var w3 = 0;
+      var Ao = function (wJ) {
+        var wr;
+        var wC;
+        var wH;
+        if ("touchstart" == wJ.type) {
+          wr = (screen.availWidth - AR.fo.outerWidth < 10) << 0;
+          As[21] = wr;
+        }
+        if (Aa = true) {
+          Ak && (wJ = AR.fo.event);
+          10 < w2 && AK.shift();
+          w2++;
+          wr = parseInt(wJ["touchstart" == wJ.type ? "touches" : "changedTouches"][0].pageX);
+          wC = parseInt(wJ["touchstart" == wJ.type ? "touches" : "changedTouches"][0].pageY);
+          wH = new Date().getTime() - w1;
+          As[3]++;
+          AK.push(("touchstart" == wJ.type ? "0" : 1) + "+" + wr + "+" + wC + "+" + wH);
+          1 == w2 && (w3 = wH);
+          Ar();
+          w1 += wH;
+        }
+      };
+      AR.fP.addEventListener ? (AR.fP.addEventListener("touchstart", Ao, true), AR.fP.addEventListener("touchend", Ao, true)) : AR.fP.attachEvent && (AR.fP.attachEvent("ontouchstart", Ao), AR.fP.attachEvent("ontouchend", Ao));
+      var w4 = AP;
+      var w5 = 0;
+      var Aq = function (wJ) {
+        var wr;
+        if (w5 <= 20) {
+          (Ak ? wJ = AR.fo.event : wJ = wJ).isComposing && (Av[0] = 1);
+          w5++;
+          wr = wJ.code;
+          (/(Key)[a-zA-Z]/.test(wr) || /(Digit)[0-9]/.test(wr)) && (wr = "");
+          wr = new Date().getTime() - w4;
+          As[3]++;
+          Av.push(("keydown" == wJ.type ? 0 : 1) + wr);
+          Ar();
+          w4 += wr;
+        }
+      };
+      AR.fP.addEventListener ? (AR.fP.addEventListener("keydown", Aq, true), AR.fP.addEventListener("keyup", Aq, true)) : AR.fP.attachEvent && (AR.fP.attachEvent("onkeydown", Aq), AR.fP.attachEvent("onkeyup", Aq));
+      As.push(AN((4294967295 * Math.random() >>> 0) + "|" + AP, 0, 1));
+      As.push(AE);
+      As.push(AP);
+      As.push(1);
+      for (var Ao = !!(AR.fo.webkitRTCPeerConnection || AR.fo.Element && AR.fo.Element.prototype && AR.fo.Element.prototype.webkitMatchesSelector) << 0, wp = (Ao = (Ao = (Ao = (Ao |= (undefined !== AR.fo.mozPaintCount) << 1) | (undefined !== AR.fo.mozInnerScreenX) << 2) | !!AR.fo.Debug << 3) | !!AR.fo.WebKitPlaybackTargetAvailabilityEvent << 4, 0), wu = ["zoom", "resize", "text-rendering", "text-align-last", "-webkit-hyphens"], wG = AR.fP.createElement("cc"), wD = 0; wD < wu.length; wD++) {
+        wp |= (undefined !== wG.style[wu[wD]] ? 1 : 0) << wD;
+      }
+      As.push(Ao + "|" + wp);
+      for (var Ao = AR.fE.language || AR.fE.userLanguage, Ao = (As.push(Ao), new Date().getTimezoneOffset()), w6 = (As.push(Ao), AR.fo.hasOwnProperty ? Ao = (Ao = !![].copyWithin << 0, Ao = (Ao = (Ao = (Ao = (Ao = (Ao = (Ao |= !![].includes << 1) | AR.fo.hasOwnProperty("Touch") << 2) | AR.fo.hasOwnProperty("Proxy") << 3) | (AR.fo.Symbol && AR.fo.Symbol.hasOwnProperty && AR.fo.Symbol.hasOwnProperty("match")) << 4) | !!function () {}.name << 5) | (AR.fo.Object.hasOwnProperty && AR.fo.Object.hasOwnProperty("values")) << 6) | (AR.fo.OfflineAudioContext && AR.fo.OfflineAudioContext.prototype.hasOwnProperty("close")) << 7, wf = AR.fP.createElement("canvas"), Ao = (Ao = (Ao = (Ao = (Ao = (Ao = (Ao = (Ao = (Ao = (Ao = (Ao |= !!"".padStart << 9) | (AR.fo.PointerEvent && AR.fo.PointerEvent.prototype.hasOwnProperty("getCoalescedEvents")) << 10) | AR.fo.hasOwnProperty("BudgetService") << 12) | !(!wf || !wf.getAttributeNames) << 13) | !(!AR.fo.performance || undefined === AR.fo.performance.timeOrigin) << 14) | (AR.fo.Intl && AR.fo.Intl.hasOwnProperty && AR.fo.Intl.hasOwnProperty("PluralRules")) << 15) | AR.fo.hasOwnProperty("getMatchedCSSRules") << 16) | AR.fo.hasOwnProperty("PerformanceServerTiming") << 17) | !![].values << 18) | AR.fo.hasOwnProperty("BigInt") << 19) | (undefined !== AR.fP.wasDiscarded) << 20, w6 = (AR.fo.Symbol && AR.fo.Symbol.hasOwnProperty && AR.fo.Symbol.hasOwnProperty("species")) << 0, Ao + "|" + (w6 = (w6 = (w6 = (w6 = (w6 = (w6 = (w6 = (w6 = (w6 = (w6 = (w6 |= AR.fo.hasOwnProperty("Reflect") << 1) | (AR.fo.Symbol && AR.fo.Symbol.hasOwnProperty && AR.fo.Symbol.hasOwnProperty("toPrimitive")) << 2) | (AR.fo.WeakMap && AR.fo.WeakMap.prototype.hasOwnProperty("clear")) << 3) | (AR.fo.DOMTokenList && AR.fo.DOMTokenList.prototype.hasOwnProperty("replace")) << 4) | (AR.fo.Symbol && AR.fo.Symbol.hasOwnProperty && AR.fo.Symbol.hasOwnProperty("hasInstance")) << 5) | AR.fo.hasOwnProperty("isSecureContext") << 6) | AR.fo.self.hasOwnProperty("origin") << 7) | (AR.fo.PerformanceTiming && AR.fo.PerformanceTiming.prototype.hasOwnProperty("secureConnectionStart")) << 8) | AR.fo.hasOwnProperty("showModalDialog") << 9) | (AR.fo.HTMLDocument && AR.fo.HTMLDocument.prototype.hasOwnProperty("getSelection")) << 10) | (AR.fo.HTMLMediaElement && AR.fo.HTMLMediaElement.prototype.hasOwnProperty("mozAutoplayEnabled")) << 11)) : Ao = "0|0", As.push(Ao), AR.fo.screen), Ao = AR.fP.documentElement, Aq = w6.width || 0, AE = w6.height || 0, w7 = AR.fo.innerWidth || Ao && Ao.clientWidth || AR.fP.body && AR.fP.body.clientWidth || 0, Ao = AR.fo.innerHeight || Ao && Ao.clientHeight || AR.fP.body && AR.fP.body.clientHeight || 0, w8 = AR.fo.screenTop || AR.fo.screenY || 0, w9 = AR.fo.screenLeft || AR.fo.screenX || 0, Aq = (As.push(Aq + "|" + AE + "|" + w7 + "|" + Ao + "|" + w8 + "|" + w9), AR.fo.hasOwnProperty && AR.fo.hasOwnProperty("history") ? AR.fo.history.length : -1), AE = (As.push(Aq), AR.fE.platform), w7 = (As.push(AE), AR.fE.hardwareConcurrency || 0), Ao = (As.push(w7), ""), wf = AR.fP.createElement("canvas"), AE = (wf.getContext ? (w8 = wf.getContext("webgl") || wf.getContext("experimental-webgl")) ? (w9 = w8.getExtension("WEBGL_debug_renderer_info")) ? Ao = (Aq = w8.getParameter(w9.UNMASKED_VENDOR_WEBGL), w8.getParameter(w9.UNMASKED_RENDERER_WEBGL) + "|" + Aq) : Ao = "ns|3" : Ao = "ns|2" : Ao = "ns|1", As.push(Ao), w6.colorDepth + "|" + w6.pixelDepth), w7 = (As.push(AE), AR.fE.oscpu || 0), wA = (As.push(w7), AR.fo.hasOwnProperty ? wL = (wL = AR.fo.hasOwnProperty("ApplePaySession") << 0, (wL = (wL = (wL |= AR.fo.hasOwnProperty("ApplePayError") << 1) | AR.fo.hasOwnProperty("Bluetooth") << 2) | AR.fo.hasOwnProperty("BluetoothDevice") << 3) | AR.fo.hasOwnProperty("BluetoothUUID") << 4) : wL = 0, As.push(wL), ""), ww = AR.fE.plugins, wD = 0; ww && wD < ww.length; wD++) {
+        wA += ww[wD].name + ww[wD].filename;
+        if (ww[wD].version) {
+          wA += ww[wD].version + "<br>";
+        }
+        for (var wR = 0; wR < ww[wD].length; wR++) {
+          var wy = ww[wD][wR];
+          var wN = 0;
+          if (wy ? wN = wy.type : wN = wN) {
+            wA += wN.substring(12);
           }
         }
-        $.log("[" + (this.userName || this.index) + "][INFO] 会员日合成列表: " + _0x229986.join(", "));
-        if (this.memberDay_redPacket_map[_0x44ede7]) {
-          $.log("[" + (this.userName || this.index) + "][INFO] 会员日已拥有[" + _0x44ede7 + "级]红包X" + this.memberDay_redPacket_map[_0x44ede7]);
-          await this.memberDay_redPacketDraw(_0x44ede7);
-        } else {
-          let _0x779223 = _0x44ede7 - _0x14e894;
-          $.log("[" + (this.userName || this.index) + "][INFO] 会员日距离[" + _0x44ede7 + "级]红包还差: [1级]红包X" + _0x779223);
-        }
-      } else {
-        let _0x384cb6 = _0x3a4d0f?.["errorMessage"] || (_0x3a4d0f ? JSON.stringify(_0x3a4d0f) : "无返回");
-        $.log("[" + (this.userName || this.index) + "][ERROR] 查询会员日合成失败" + _0x384cb6);
-        _0x384cb6.includes("没有资格参与活动") && (this.memberDay_black = true, $.log("[" + (this.userName || this.index) + "][ERROR] 会员日任务风控"));
       }
-    } catch (_0x57cd99) {
-      this.ckStatus = false;
-      $.log("[" + (this.userName || this.index) + "][ERROR] " + _0x57cd99 + "\n");
+      wA = (ww ? ww.length : 0) + "|" + AN(wA, 0, 1);
+      As.push(wA);
+      As.push((wf = AR.fP.createElement("canvas"), w8 = "", wf.getContext && (w9 = wf.getContext("2d"), wf.height = 60, wf.width = 400, wf.style.display = "inline", w9.textBaseline = "alphabetic", w9.fillStyle = "#f60", w9.fillRect(125, 1, 62, 20), w9.fillStyle = "#069", w9.font = "11pt no-real-font-123", w9.fillText("Cwm fjordbank glyphs vext quiz, 😃", 2, 15), w9.fillStyle = "rgba(102, 204, 0, 0.7)", w9.font = "18pt Arial", w9.fillText("Cwm fjordbank glyphs vext quiz, 😃", 4, 45), w8 = AN(w8 = wf.toDataURL() || "", 0, 1)), w8));
+      var Ao = (Aq = AR.fE.userAgent) ? AN(Aq, 0, 1) : 0;
+      As.push(Ao);
+      var AE = AR.fP.hidden || AR.fP.mozHidden ? 0 : 1;
+      As.push(AE);
+      As.push(0);
+      var w7 = (w6.availWidth - AR.fo.outerWidth < 10) << 0;
+      As.push(w7);
+      var wL = (0, Ay.n)(true);
+      As.push(wL);
+      var wb = new Date(AP + 15552000000).toUTCString();
+      Ar();
     }
-  }
-  async memberDay_redPacketMerge(_0x426862) {
-    try {
-      const _0x242125 = {
-        level: _0x426862,
-        num: 2
-      };
-      const _0x22a267 = {
-        url: "https://mcs-mimp-web.sf-express.com/mcs-mimp/commonPost/~memberNonactivity~memberDayPacketService~redPacketMerge",
-        type: "post",
-        headers: {
-          ...this.getSign()
-        },
-        dataType: "json",
-        body: _0x242125
-      };
-      let _0x1d382e = await this.fetch(_0x22a267);
-      if (_0x1d382e?.["success"]) {
-        $.log("[" + (this.userName || this.index) + "][INFO] 会员日合成: [" + _0x426862 + "级]红包X2 -> [" + (_0x426862 + 1) + "级]红包");
-        this.memberDay_redPacket_map[_0x426862] -= 2;
-        !this.memberDay_redPacket_map[_0x426862 + 1] && (this.memberDay_redPacket_map[_0x426862 + 1] = 0);
-        this.memberDay_redPacket_map[_0x426862 + 1]++;
-      } else {
-        let _0x32aea5 = _0x1d382e?.["errorMessage"] || (_0x1d382e ? JSON.stringify(_0x1d382e) : "无返回");
-        $.log("[" + (this.userName || this.index) + "][ERROR] 会员日合成两个[" + _0x426862 + "级]红包失败: " + _0x32aea5);
-        if (_0x32aea5.includes("没有资格参与活动")) {
-          this.memberDay_black = true;
-          $.log("[" + (this.userName || this.index) + "][ERROR] 会员日任务风控");
-        }
-      }
-    } catch (_0x1b12db) {
-      this.ckStatus = false;
-      $.log("[" + (this.userName || this.index) + "][ERROR] " + _0x1b12db + "\n");
+    var wM = R(721);
+    var wW = XMLHttpRequest.prototype;
+    var wh = wW.send;
+    var wx = wW.open;
+    var wS = wW.addEventListener;
+    var wU = wW.removeEventListener;
+    var wQ = wW.setRequestHeader;
+    var wd = Object.getOwnPropertyDescriptor(wW, "responseText");
+    var wm = Object.getOwnPropertyDescriptor(wW, "responseType");
+    var wT = Object.getOwnPropertyDescriptor(wW, "response");
+    var wt = R(606);
+    var wV = "acw-sc--v3";
+    var wF = "acw_sc__v3";
+    function wo(wJ) {
+      return wJ + "_" + wF;
     }
-  }
-  async memberDay_redPacketDraw(_0x4f2162) {
-    try {
-      const _0x4adaa5 = {
-        url: "https://mcs-mimp-web.sf-express.com/mcs-mimp/commonPost/~memberNonactivity~memberDayPacketService~redPacketDraw",
-        type: "post",
-        headers: {
-          ...this.getSign()
-        },
-        dataType: "json",
-        body: {
-          level: _0x4f2162.toString()
-        }
-      };
-      let _0x5d690f = await this.fetch(_0x4adaa5);
-      if (_0x5d690f?.["success"]) {
-        let _0xf4df4a = _0x5d690f?.["obj"]?.["map"](_0x5be5e8 => _0x5be5e8.couponName) || [];
-        $.log("[" + (this.userName || this.index) + "][INFO] 会员日提取[" + _0x4f2162 + "级]红包: " + (_0xf4df4a.join(", ") || "空气"));
-      } else {
-        let _0x569021 = _0x5d690f?.["errorMessage"] || (_0x5d690f ? JSON.stringify(_0x5d690f) : "无返回");
-        $.log("[" + (this.userName || this.index) + "][ERROR] 会员日提取[" + _0x4f2162 + "级]红包失败: " + _0x569021);
-        _0x569021.includes("没有资格参与活动") && (this.memberDay_black = true, $.log("[" + (this.userName || this.index) + "][ERROR] 会员日任务风控"));
+    function wP(wJ, wr) {
+      var wC;
+      if (AR.fm[AR.fT] && wr && (wC = (0, AA.fb)(wJ)).host && (0, AA.ft)(wJ, location.href)) {
+        (0, wt.fy)(wo(wC.host), wr);
       }
-    } catch (_0x3845eb) {
-      this.ckStatus = false;
-      $.log("[" + (this.userName || this.index) + "][ERROR] " + _0x3845eb + "\n");
     }
-  }
-  async bee_indexData() {
-    try {
-      let _0x55aee5 = randomList(this.userIdList.filter(_0x52ef50 => _0x52ef50 !== this.userId));
-      const _0x1a5a1b = {
-        inviteUserId: _0x55aee5
-      };
-      const _0x51c4e1 = {
-        url: "https://mcs-mimp-web.sf-express.com/mcs-mimp/commonPost/~memberNonactivity~receiveExchangeIndexService~indexData",
-        type: "post",
-        headers: {
-          ...this.getSign()
-        },
-        dataType: "json",
-        body: _0x1a5a1b
-      };
-      let _0x9132c0 = await this.fetch(_0x51c4e1);
-      if (_0x9132c0?.["success"]) {
-        let {
-          friendAwards = [],
-          gameNum = 0,
-          usableHoney = 0,
-          capacity = 0
-        } = _0x9132c0?.["obj"];
-        $.beeHoney = usableHoney;
-        friendAwards.length > 0 && $.log("[" + (this.userName || this.index) + "][INFO] 获得奖励: " + friendAwards.map(_0x4814e7 => _0x4814e7.name).join(", "));
-        $.log("[" + (this.userName || this.index) + "][INFO] 可以进行采蜜冒险 " + gameNum + " 次");
-        while (gameNum-- > 0) {
-          await this.bee_gameReport();
+    var wE = R(540);
+    var ws = {};
+    function wi(wJ) {
+      if (!AR.fm[AR.fT] || !(0, AA.ft)(wJ, location.href)) {
+        return wJ;
+      }
+      var wr;
+      var wC = (0, AA.fb)(wJ);
+      var wH = {};
+      var wl = 0;
+      for (wr in ws) {
+        var wj = (0, wt.fD)(ws[wr](wC.host));
+        if (wj) {
+          wH[wr] = wj;
+          ++wl;
         }
-        await this.bee_taskDetail();
-      } else {
-        $.log("[" + (this.userName || this.index) + "][ERROR] 进入采蜜游戏主页失败: " + (_0x9132c0?.["errorMessage"] || (_0x9132c0 ? JSON.stringify(_0x9132c0) : "无返回")));
-        return;
       }
-      let _0x38aa5d = await this.fetch(_0x51c4e1);
-      if (_0x38aa5d?.["success"]) {
-        for (let _0x1d4b0b of _0x38aa5d?.["obj"]?.["taskDetail"] || []) {
-          await this.bee_receiveHoney(_0x1d4b0b);
-        }
-      } else {
-        $.log("[" + (this.userName || this.index) + "][ERROR] 获取采蜜任务详情失败: " + (_0x38aa5d?.["errorMessage"] || (_0x38aa5d ? JSON.stringify(_0x38aa5d) : "无返回")));
-        return;
-      }
-      let _0x53af1c = await this.fetch(_0x51c4e1);
-      if (_0x53af1c?.["success"]) {
-        $.log("[" + (this.userName || this.index) + "][INFO] 采蜜游戏丰蜜: " + (_0x53af1c?.["obj"]?.["usableHoney"] || 0));
-        $.beeHoney = _0x53af1c?.["obj"]["usableHoney"] - $.beeHoney;
-      } else {
-        $.log("[" + (this.userName || this.index) + "][ERROR] 获取采蜜游戏丰蜜失败: " + (_0x53af1c?.["errorMessage"] || (_0x53af1c ? JSON.stringify(_0x53af1c) : "无返回")));
-        return;
-      }
-    } catch (_0x5d19c9) {
-      this.ckStatus = false;
-      $.log("[" + (this.userName || this.index) + "][ERROR] " + _0x5d19c9 + "\n");
+      return 0 == wl ? wJ : (wC.search = (0, AA.fx)(wC.search, wH), (0, AA.fW)(wC));
     }
-  }
-  async bee_taskDetail() {
-    try {
-      const _0x3e602a = {
-        url: "https://mcs-mimp-web.sf-express.com/mcs-mimp/commonPost/~memberNonactivity~receiveExchangeIndexService~taskDetail",
-        type: "post",
-        headers: {
-          ...this.getSign()
-        },
-        dataType: "json",
-        body: {}
-      };
-      let _0x301612 = await this.fetch(_0x3e602a);
-      if (_0x301612?.["success"]) {
-        for (let _0x2a4e39 of _0x301612.obj.list) {
-          if (!_0x2a4e39.taskCode) {
-            continue;
-          }
-          switch (_0x2a4e39.status) {
-            case 2:
-              if ($.unTaskList.includes(_0x2a4e39.taskType)) {
+    ws[wE.fd] = wE.fU;
+    ws[wF] = wo;
+    var wc = R(669);
+    function wO(wJ) {
+      return ("function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? wO = function (wC) {
+        return typeof wC;
+      } : wO = function (wC) {
+        return wC && "function" == typeof Symbol && wC.constructor === Symbol && wC !== Symbol.prototype ? "symbol" : typeof wC;
+      })(wJ);
+    }
+    var wK;
+    var wa = R(669).fA;
+    var wv = R(669).f6;
+    AR.fo._waf_async_initialized || (AR.fo._waf_is_mobile = false, AR.fo._waf_traceid = "", AR.fo._waf_nc_width = 300, AR.fo._waf_websdk_version = AR.fs, w9 = AR.fE.userAgent || AR.fE.vendor || AR.fo.opera, (/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino/i.test(w9) || /1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(w9.substr(0, 4))) && (AR.fo._waf_is_mobile = true), (wK = {
+      fO: [],
+      fK: [],
+      fe: undefined,
+      fa: undefined,
+      fv: undefined,
+      fJ: undefined,
+      fr: undefined,
+      fC: function (wJ) {
+        if (wJ) {
+          switch (wJ.which) {
+            case "jsclg":
+              {
+                this.fK.push(wJ);
                 break;
               }
-              await this.bee_finishTask(_0x2a4e39);
-            case 1:
-            case 3:
-              break;
-            default:
-              $.log("[" + (this.userName || this.index) + "][ERROR] 任务[" + _0x2a4e39.title + "] -- 未知状态[" + _0x2a4e39.status + "]");
-              break;
-          }
-        }
-      } else {
-        $.log("[" + (this.userName || this.index) + "][ERROR] 查询任务失败: " + (_0x301612?.["errorMessage"] || (_0x301612 ? JSON.stringify(_0x301612) : "无返回")));
-      }
-    } catch (_0x475124) {
-      this.ckStatus = false;
-      $.log("[" + (this.userName || this.index) + "][ERROR] " + _0x475124 + "\n");
-    }
-  }
-  async bee_expand() {
-    try {
-      const _0x4b98c7 = {
-        url: "https://mcs-mimp-web.sf-express.com/mcs-mimp/commonPost/~memberNonactivity~receiveExchangeApiService~expand",
-        type: "post",
-        headers: {
-          ...this.getSign()
-        },
-        dataType: "json",
-        body: {}
-      };
-      let _0x1a2be3 = await this.fetch(_0x4b98c7);
-      if (!_0x1a2be3?.["success"]) {
-        throw new Error("采蜜扩容失败: " + (_0x1a2be3?.["errorMessage"] || _0x1a2be3));
-      }
-      $.log("[" + (this.userName || this.index) + "][INFO] " + "采蜜扩容成功");
-    } catch (_0x4322b8) {
-      this.ckStatus = false;
-      $.log("[" + (this.userName || this.index) + "][ERROR] " + _0x4322b8 + "\n");
-    }
-  }
-  async bee_finishTask(_0x5ba214) {
-    try {
-      const _0x31487d = {
-        taskCode: _0x5ba214.taskCode
-      };
-      const _0x581153 = {
-        url: "https://mcs-mimp-web.sf-express.com/mcs-mimp/commonPost/~memberEs~taskRecord~finishTask",
-        type: "post",
-        headers: {
-          ...this.getSign()
-        },
-        dataType: "json",
-        body: _0x31487d
-      };
-      let _0x2f733d = await this.fetch(_0x581153);
-      if (!_0x2f733d?.["success"]) {
-        throw new Error("完成采蜜任务失败: " + (_0x2f733d?.["errorMessage"] || _0x2f733d));
-      }
-      $.log("[" + (this.userName || this.index) + "][INFO] " + "完成采蜜任务[" + _0x5ba214.taskType + "]成功");
-    } catch (_0x4a5b93) {
-      this.ckStatus = false;
-      $.log("[" + (this.userName || this.index) + "][ERROR] " + _0x4a5b93 + "\n");
-    }
-  }
-  async bee_receiveHoney(_0x452797) {
-    try {
-      const _0x4856cc = {
-        taskType: _0x452797.type
-      };
-      const _0x1f2d5c = {
-        url: "https://mcs-mimp-web.sf-express.com/mcs-mimp/commonPost/~memberNonactivity~receiveExchangeIndexService~receiveHoney",
-        type: "post",
-        headers: {
-          ...this.getSign()
-        },
-        dataType: "json",
-        body: _0x4856cc
-      };
-      let _0x59ecaf = await this.fetch(_0x1f2d5c);
-      if (!_0x59ecaf?.["success"]) {
-        throw new Error("领取[" + _0x452797.type + "]奖励失败: " + ("" + (_0x59ecaf?.["errorMessage"] || _0x59ecaf)));
-      }
-      $.log("[" + (this.userName || this.index) + "][INFO] " + "领取[" + _0x452797.type + "]奖励获得: " + _0x452797.value + "丰蜜");
-    } catch (_0x34837d) {
-      this.ckStatus = false;
-      $.log("[" + (this.userName || this.index) + "][ERROR] " + _0x34837d + "\n");
-    }
-  }
-  async bee_gameReport() {
-    try {
-      let _0x2a083d = 20;
-      const _0x46349f = {
-        gatherHoney: _0x2a083d
-      };
-      const _0x62f9b8 = {
-        url: "https://mcs-mimp-web.sf-express.com/mcs-mimp/commonPost/~memberNonactivity~receiveExchangeGameService~gameReport",
-        type: "post",
-        headers: {
-          ...this.getSign()
-        },
-        dataType: "json",
-        body: _0x46349f
-      };
-      let _0x4dabb1 = await this.fetch(_0x62f9b8);
-      if (!_0x4dabb1?.["success"]) {
-        throw new Error("采蜜冒险失败: " + (_0x4dabb1?.["errorMessage"] || _0x4dabb1));
-      }
-      $.log("[" + (this.userName || this.index) + "][INFO] 采蜜冒险获得" + _0x2a083d + "丰蜜");
-    } catch (_0x3015a9) {
-      this.ckStatus = false;
-      $.log("[" + (this.userName || this.index) + "][ERROR] " + _0x3015a9 + "\n");
-    }
-  }
-  async coupon_list(_0x263942 = 1, _0x2027fe = 100) {
-    try {
-      const _0x1baeb7 = {
-        couponType: "",
-        pageNo: _0x263942,
-        pageSize: _0x2027fe
-      };
-      const _0x23977a = {
-        url: "https://mcs-mimp-web.sf-express.com/mcs-mimp/coupon/available/list",
-        type: "post",
-        headers: {
-          ...this.getSign()
-        },
-        dataType: "json",
-        body: _0x1baeb7
-      };
-      let _0x3824b6 = await this.fetch(_0x23977a);
-      if (!_0x3824b6.success) {
-        throw new Error("查询账号券失败: " + (_0x3824b6.errorMessage || JSON.stringify(_0x3824b6) || "无返回"));
-      }
-      let _0x3dd68e = _0x3824b6?.["obj"] || [],
-        _0x4d7ab6 = _0x3dd68e.filter(_0x34e7f4 => _0x34e7f4.couponType === "1" && _0x34e7f4.pledgeAmt >= 8);
-      _0x4d7ab6.length > 0 && ($.log("[" + (this.userName || this.index) + "][INFO] 大额优惠券:"), $.log(_0x4d7ab6.map(_0x19d03a => "[" + (this.userName || this.index) + "][INFO] " + _0x19d03a.couponName + ", 过期时间: " + _0x19d03a.invalidTm).join("\n")));
-    } catch (_0x315b4a) {
-      this.ckStatus = false;
-      $.log("[" + (this.userName || this.index) + "][ERROR] " + _0x315b4a + "\n");
-    }
-  }
-}
-async function getCookie() {
-  try {
-    if ($request && $request.method === "OPTIONS") {
-      return;
-    }
-    const _0x589f43 = ObjectKeys2LowerCase($response.headers) ?? {};
-    if (!_0x589f43) {
-      throw new Error("错误的运行方式，请切换到cron环境");
-    }
-    let _0x2effa6 = getQueries(_0x589f43.location);
-    $.log($.toStr(_0x2effa6));
-    $.log($.toStr(_0x589f43));
-    const _0x16c667 = {
-        userId: _0x2effa6.userId,
-        token: $request.url,
-        userName: _0x2effa6?.["mobile"]
-      },
-      _0x426ee9 = userCookie.findIndex(_0x5375a2 => _0x5375a2.userId == _0x16c667.userId);
-    userCookie[_0x426ee9] ? userCookie[_0x426ee9] = _0x16c667 : userCookie.push(_0x16c667);
-    $.setjson(userCookie, ckName);
-    $.msg($.name, "🎉账号[" + _0x16c667.userName + "]更新token成功!", "");
-  } catch (_0x3ade75) {
-    throw _0x3ade75;
-  }
-}
-function randomPattern(_0x3c17a7, _0x8d884 = "abcdef0123456789") {
-  return _0x3c17a7.split("").map(_0x4bec48 => {
-    if (_0x4bec48 === "x") {
-      return _0x8d884.charAt(Math.floor(Math.random() * _0x8d884.length));
-    } else {
-      return _0x4bec48 === "X" ? _0x8d884.charAt(Math.floor(Math.random() * _0x8d884.length)).toUpperCase() : _0x4bec48;
-    }
-  }).join("");
-}
-function phone_num(_0x591173) {
-  if (_0x591173.length == 11) {
-    let _0x236732 = _0x591173.replace(/(\d{3})\d{4}(\d{4})/, "$1****$2");
-    return _0x236732;
-  } else {
-    return _0x591173;
-  }
-}
-async function loadCryptoJS() {
-  let _0x506037 = ($.isNode() ? require("crypto-js") : $.getdata("CryptoJS_code")) || "";
-  if ($.isNode()) {
-    return _0x506037;
-  }
-  if (_0x506037 && Object.keys(_0x506037).length) {
-    console.log("[INFO] 缓存中存在CryptoJS代码, 跳过下载\n");
-    eval(_0x506037);
-    return createCryptoJS();
-  }
-  console.log("[INFO] 开始下载CryptoJS代码\n");
-  return new Promise(async _0x4915bc => {
-    $.getScript("https://cdn.jsdelivr.net/gh/Sliverkiss/QuantumultX@main/Utils/CryptoJS.min.js").then(_0x1915b9 => {
-      $.setdata(_0x1915b9, "CryptoJS_code");
-      eval(_0x1915b9);
-      const _0x32addd = createCryptoJS();
-      console.log("[INFO] CryptoJS加载成功, 请继续\n");
-      _0x4915bc(_0x32addd);
-    });
-  });
-}
-function getQueries(_0x34a312) {
-  const [, _0x5a8c5a] = _0x34a312.split("?");
-  return _0x5a8c5a ? _0x5a8c5a.split("&").reduce((_0x38438c, _0x1be0b6) => {
-    const [_0x4568e6, _0x33c983] = _0x1be0b6.split("=");
-    _0x38438c[_0x4568e6] = _0x33c983;
-    return _0x38438c;
-  }, {}) : {};
-}
-function randomList(_0x217c5b) {
-  if (!_0x217c5b.length) {
-    return null;
-  }
-  let _0x464f34 = Math.floor(Math.random() * _0x217c5b.length);
-  return _0x217c5b[_0x464f34];
-}
-function copy(_0x5ce176) {
-  return Object.assign({}, _0x5ce176);
-}
-!(async () => {
-  try {
-    typeof $request != "undefined" ? await getCookie() : ($.CryptoJS = await loadCryptoJS(), await checkEnv(), await main());
-  } catch (_0x52bf35) {
-    throw _0x52bf35;
-  }
-})().catch(_0x376214 => {
-  $.logErr(_0x376214);
-  $.msg($.name, "⛔️ script run error!", _0x376214.message || _0x376214);
-}).finally(async () => {
-  const _0x13f7ef = {
-    ok: 1
-  };
-  $.done(_0x13f7ef);
-});
-async function sendMsg(a, e) {
-  a && ($.isNode() ? await notify.sendNotify($.name, a) : $.msg($.name, $.title || "", a, e));
-}
-function DoubleLog(o) {
-  o && ($.log(`${o}`), $.notifyMsg.push(`${o}`));
-}
-async function checkEnv() {
-  try {
-    if (!userCookie?.length) {
-      throw new Error("no available accounts found");
-    }
-    $.log(`\n[INFO] 检测到 ${userCookie?.length ?? 0} 个账号\n`);
-    $.userList.push(...userCookie.map(o => new UserInfo(o)).filter(Boolean));
-  } catch (o) {
-    throw o;
-  }
-}
-function debug(g, e = "debug") {
-  "true" === $.is_debug && ($.log(`\n-----------${e}------------\n`), $.log("string" == typeof g ? g : $.toStr(g) || `debug error => t=${g}`), $.log(`\n-----------${e}------------\n`));
-}
-function ObjectKeys2LowerCase(obj) {
-  return !obj ? {} : Object.fromEntries(Object.entries(obj).map(([k, v]) => [k.toLowerCase(), v]));
-}
-async function Request(t) {
-  "string" == typeof t && (t = {
-    url: t
-  });
-  try {
-    if (!t?.url) {
-      throw new Error("[URL][ERROR] 缺少 url 参数");
-    }
-    let {
-      url: o,
-      type: e,
-      headers: r = {},
-      body: s,
-      params: a,
-      dataType: n = "form",
-      resultType: u = "data"
-    } = t;
-    const p = e ? e?.toLowerCase() : "body" in t ? "post" : "get",
-      c = o.concat("post" === p ? "?" + $.queryStr(a) : ""),
-      i = t.timeout ? $.isSurge() ? t.timeout / 1000 : t.timeout : 10000;
-    "json" === n && (r["Content-Type"] = "application/json;charset=UTF-8");
-    const y = "string" == typeof s ? s : s && "form" == n ? $.queryStr(s) : $.toStr(s),
-      l = {
-        ...t,
-        ...(t?.opts ? t.opts : {}),
-        url: c,
-        headers: r,
-        ...("post" === p && {
-          body: y
-        }),
-        ...("get" === p && a && {
-          params: a
-        }),
-        timeout: i
-      },
-      m = $.http[p.toLowerCase()](l).then(t => "data" == u ? $.toObj(t.body) || t.body : $.toObj(t) || t).catch(t => $.log(`[${p.toUpperCase()}][ERROR] ${t}\n`));
-    return Promise.race([new Promise((t, o) => setTimeout(() => o("当前请求已超时"), i)), m]);
-  } catch (t) {
-    console.log(`[${p.toUpperCase()}][ERROR] ${t}\n`);
-  }
-}
-function Env(t, e) {
-  class s {
-    constructor(t) {
-      this.env = t;
-    }
-    send(t, e = "GET") {
-      t = "string" == typeof t ? {
-        url: t
-      } : t;
-      let s = this.get;
-      "POST" === e && (s = this.post);
-      const i = new Promise((e, i) => {
-        s.call(this, t, (t, s, o) => {
-          t ? i(t) : e(s);
-        });
-      });
-      return t.timeout ? ((t, e = 1000) => Promise.race([t, new Promise((t, s) => {
-        setTimeout(() => {
-          s(new Error("请求超时"));
-        }, e);
-      })]))(i, t.timeout) : i;
-    }
-    get(t) {
-      return this.send.call(this.env, t);
-    }
-    post(t) {
-      return this.send.call(this.env, t, "POST");
-    }
-  }
-  return new class {
-    constructor(t, e) {
-      this.logLevels = {
-        debug: 0,
-        info: 1,
-        warn: 2,
-        error: 3
-      };
-      this.logLevelPrefixs = {
-        debug: "[DEBUG] ",
-        info: "[INFO] ",
-        warn: "[WARN] ",
-        error: "[ERROR] "
-      };
-      this.logLevel = "info";
-      this.name = t;
-      this.http = new s(this);
-      this.data = null;
-      this.dataFile = "box.dat";
-      this.logs = [];
-      this.isMute = !1;
-      this.isNeedRewrite = !1;
-      this.logSeparator = "\n";
-      this.encoding = "utf-8";
-      this.startTime = new Date().getTime();
-      Object.assign(this, e);
-      this.log("", `🔔${this.name}, 开始!`);
-    }
-    getEnv() {
-      return "undefined" != typeof $environment && $environment["surge-version"] ? "Surge" : "undefined" != typeof $environment && $environment["stash-version"] ? "Stash" : "undefined" != typeof module && module.exports ? "Node.js" : "undefined" != typeof $task ? "Quantumult X" : "undefined" != typeof $loon ? "Loon" : "undefined" != typeof $rocket ? "Shadowrocket" : void 0;
-    }
-    isNode() {
-      return "Node.js" === this.getEnv();
-    }
-    isQuanX() {
-      return "Quantumult X" === this.getEnv();
-    }
-    isSurge() {
-      return "Surge" === this.getEnv();
-    }
-    isLoon() {
-      return "Loon" === this.getEnv();
-    }
-    isShadowrocket() {
-      return "Shadowrocket" === this.getEnv();
-    }
-    isStash() {
-      return "Stash" === this.getEnv();
-    }
-    toObj(t, e = null) {
-      try {
-        return JSON.parse(t);
-      } catch {
-        return e;
-      }
-    }
-    toStr(t, e = null, ...s) {
-      try {
-        return JSON.stringify(t, ...s);
-      } catch {
-        return e;
-      }
-    }
-    getjson(t, e) {
-      let s = e;
-      if (this.getdata(t)) {
-        try {
-          s = JSON.parse(this.getdata(t));
-        } catch {}
-      }
-      return s;
-    }
-    setjson(t, e) {
-      try {
-        return this.setdata(JSON.stringify(t), e);
-      } catch {
-        return !1;
-      }
-    }
-    getScript(t) {
-      return new Promise(e => {
-        this.get({
-          url: t
-        }, (t, s, i) => e(i));
-      });
-    }
-    runScript(t, e) {
-      return new Promise(s => {
-        let i = this.getdata("@chavy_boxjs_userCfgs.httpapi");
-        i = i ? i.replace(/\n/g, "").trim() : i;
-        let o = this.getdata("@chavy_boxjs_userCfgs.httpapi_timeout");
-        o = o ? 1 * o : 20;
-        o = e && e.timeout ? e.timeout : o;
-        const [r, a] = i.split("@"),
-          n = {
-            url: `http://${a}/v1/scripting/evaluate`,
-            body: {
-              script_text: t,
-              mock_type: "cron",
-              timeout: o
-            },
-            headers: {
-              "X-Key": r,
-              Accept: "*/*"
-            },
-            policy: "DIRECT",
-            timeout: o
-          };
-        this.post(n, (t, e, i) => s(i));
-      }).catch(t => this.logErr(t));
-    }
-    loaddata() {
-      if (!this.isNode()) {
-        return {};
-      }
-      {
-        this.fs = this.fs ? this.fs : require("fs");
-        this.path = this.path ? this.path : require("path");
-        const t = this.path.resolve(this.dataFile),
-          e = this.path.resolve(process.cwd(), this.dataFile),
-          s = this.fs.existsSync(t),
-          i = !s && this.fs.existsSync(e);
-        if (!s && !i) {
-          return {};
-        }
-        {
-          const i = s ? t : e;
-          try {
-            return JSON.parse(this.fs.readFileSync(i));
-          } catch (t) {
-            return {};
-          }
-        }
-      }
-    }
-    writedata() {
-      if (this.isNode()) {
-        this.fs = this.fs ? this.fs : require("fs");
-        this.path = this.path ? this.path : require("path");
-        const t = this.path.resolve(this.dataFile),
-          e = this.path.resolve(process.cwd(), this.dataFile),
-          s = this.fs.existsSync(t),
-          i = !s && this.fs.existsSync(e),
-          o = JSON.stringify(this.data);
-        s ? this.fs.writeFileSync(t, o) : i ? this.fs.writeFileSync(e, o) : this.fs.writeFileSync(t, o);
-      }
-    }
-    lodash_get(t, e, s) {
-      const i = e.replace(/\[(\d+)\]/g, ".$1").split(".");
-      let o = t;
-      for (const t of i) if (o = Object(o)[t], void 0 === o) {
-        return s;
-      }
-      return o;
-    }
-    lodash_set(t, e, s) {
-      Object(t) !== t || (Array.isArray(e) || (e = e.toString().match(/[^.[\]]+/g) || []), e.slice(0, -1).reduce((t, s, i) => Object(t[s]) === t[s] ? t[s] : t[s] = Math.abs(e[i + 1]) >> 0 == +e[i + 1] ? [] : {}, t)[e[e.length - 1]] = s);
-      return t;
-    }
-    getdata(t) {
-      let e = this.getval(t);
-      if (/^@/.test(t)) {
-        const [, s, i] = /^@(.*?)\.(.*?)$/.exec(t),
-          o = s ? this.getval(s) : "";
-        if (o) {
-          try {
-            const t = JSON.parse(o);
-            e = t ? this.lodash_get(t, i, "") : e;
-          } catch (t) {
-            e = "";
-          }
-        }
-      }
-      return e;
-    }
-    setdata(t, e) {
-      let s = !1;
-      if (/^@/.test(e)) {
-        const [, i, o] = /^@(.*?)\.(.*?)$/.exec(e),
-          r = this.getval(i),
-          a = i ? "null" === r ? null : r || "{}" : "{}";
-        try {
-          const e = JSON.parse(a);
-          this.lodash_set(e, o, t);
-          s = this.setval(JSON.stringify(e), i);
-        } catch (e) {
-          const r = {};
-          this.lodash_set(r, o, t);
-          s = this.setval(JSON.stringify(r), i);
-        }
-      } else {
-        s = this.setval(t, e);
-      }
-      return s;
-    }
-    getval(t) {
-      switch (this.getEnv()) {
-        case "Surge":
-        case "Loon":
-        case "Stash":
-        case "Shadowrocket":
-          return $persistentStore.read(t);
-        case "Quantumult X":
-          return $prefs.valueForKey(t);
-        case "Node.js":
-          this.data = this.loaddata();
-          return this.data[t];
-        default:
-          return this.data && this.data[t] || null;
-      }
-    }
-    setval(t, e) {
-      switch (this.getEnv()) {
-        case "Surge":
-        case "Loon":
-        case "Stash":
-        case "Shadowrocket":
-          return $persistentStore.write(t, e);
-        case "Quantumult X":
-          return $prefs.setValueForKey(t, e);
-        case "Node.js":
-          this.data = this.loaddata();
-          this.data[e] = t;
-          this.writedata();
-          return !0;
-        default:
-          return this.data && this.data[e] || null;
-      }
-    }
-    initGotEnv(t) {
-      this.got = this.got ? this.got : require("got");
-      this.cktough = this.cktough ? this.cktough : require("tough-cookie");
-      this.ckjar = this.ckjar ? this.ckjar : new this.cktough.CookieJar();
-      t && (t.headers = t.headers ? t.headers : {}, t && (t.headers = t.headers ? t.headers : {}, void 0 === t.headers.cookie && void 0 === t.headers.Cookie && void 0 === t.cookieJar && (t.cookieJar = this.ckjar)));
-    }
-    get(t, e = () => {}) {
-      switch (t.headers && (delete t.headers["Content-Type"], delete t.headers["Content-Length"], delete t.headers["content-type"], delete t.headers["content-length"]), t.params && (t.url += "?" + this.queryStr(t.params)), void 0 === t.followRedirect || t.followRedirect || ((this.isSurge() || this.isLoon()) && (t["auto-redirect"] = !1), this.isQuanX() && (t.opts ? t.opts.redirection = !1 : t.opts = {
-        redirection: !1
-      })), this.getEnv()) {
-        case "Surge":
-        case "Loon":
-        case "Stash":
-        case "Shadowrocket":
-        default:
-          this.isSurge() && this.isNeedRewrite && (t.headers = t.headers || {}, Object.assign(t.headers, {
-            "X-Surge-Skip-Scripting": !1
-          }));
-          $httpClient.get(t, (t, s, i) => {
-            !t && s && (s.body = i, s.statusCode = s.status ? s.status : s.statusCode, s.status = s.statusCode);
-            e(t, s, i);
-          });
-          break;
-        case "Quantumult X":
-          this.isNeedRewrite && (t.opts = t.opts || {}, Object.assign(t.opts, {
-            hints: !1
-          }));
-          $task.fetch(t).then(t => {
-            const {
-              statusCode: s,
-              statusCode: i,
-              headers: o,
-              body: r,
-              bodyBytes: a
-            } = t;
-            e(null, {
-              status: s,
-              statusCode: i,
-              headers: o,
-              body: r,
-              bodyBytes: a
-            }, r, a);
-          }, t => e(t && t.error || "UndefinedError"));
-          break;
-        case "Node.js":
-          let s = require("iconv-lite");
-          this.initGotEnv(t);
-          this.got(t).on("redirect", (t, e) => {
-            try {
-              if (t.headers["set-cookie"]) {
-                const s = t.headers["set-cookie"].map(this.cktough.Cookie.parse).toString();
-                s && this.ckjar.setCookieSync(s, null);
-                e.cookieJar = this.ckjar;
+            case "captcha":
+              {
+                this.fO.push(wJ);
               }
-            } catch (t) {
-              this.logErr(t);
+          }
+        }
+      },
+      fH: !(AR.fo._waf_async_initialized = true),
+      fl: 0,
+      fj: function (wJ) {
+        var wr;
+        var wC = wJ.__send_headers;
+        for (wr in wK.fa.apply(wJ, wJ.openArgs), wJ.__send_headers = wC) wQ.call(wJ, wr, wC[wr]);
+      },
+      fn: function () {
+        if (AR.fo.XMLHttpRequest) {
+          wK.fa = wW.open = function () {
+            this.scene = undefined;
+            this.__send_headers = {};
+            this.__setHeaderHooked || (this.setRequestHeader = function (wl, wj) {
+              this.__send_headers[wl] = wj;
+              wQ.call(this, wl, wj);
+            }, this.__setHeaderHooked = true);
+            var wH = arguments[1];
+            wH = wi(wH = wv(wH));
+            arguments[1] = wH;
+            this.openArgs = arguments;
+            wx.apply(this, arguments);
+          };
+          wK.fe = wW.send = function (wH) {
+            if (this.scene) {
+              delete this.scene;
             }
-          }).then(t => {
-            const {
-                statusCode: i,
-                statusCode: o,
-                headers: r,
-                rawBody: a
-              } = t,
-              n = s.decode(a, this.encoding);
-            e(null, {
-              status: i,
-              statusCode: o,
-              headers: r,
-              rawBody: a,
-              body: n
-            }, n);
-          }, t => {
-            const {
-              message: i,
-              response: o
-            } = t;
-            e(i, o, o && s.decode(o.rawBody, this.encoding));
-          });
-          break;
-      }
-    }
-    post(t, e = () => {}) {
-      const s = t.method ? t.method.toLocaleLowerCase() : "post";
-      switch (t.body && t.headers && !t.headers["Content-Type"] && !t.headers["content-type"] && (t.headers["content-type"] = "application/x-www-form-urlencoded"), t.headers && (delete t.headers["Content-Length"], delete t.headers["content-length"]), void 0 === t.followRedirect || t.followRedirect || ((this.isSurge() || this.isLoon()) && (t["auto-redirect"] = !1), this.isQuanX() && (t.opts ? t.opts.redirection = !1 : t.opts = {
-        redirection: !1
-      })), this.getEnv()) {
-        case "Surge":
-        case "Loon":
-        case "Stash":
-        case "Shadowrocket":
-        default:
-          this.isSurge() && this.isNeedRewrite && (t.headers = t.headers || {}, Object.assign(t.headers, {
-            "X-Surge-Skip-Scripting": !1
-          }));
-          $httpClient[s](t, (t, s, i) => {
-            !t && s && (s.body = i, s.statusCode = s.status ? s.status : s.statusCode, s.status = s.statusCode);
-            e(t, s, i);
-          });
-          break;
-        case "Quantumult X":
-          t.method = s;
-          this.isNeedRewrite && (t.opts = t.opts || {}, Object.assign(t.opts, {
-            hints: !1
-          }));
-          $task.fetch(t).then(t => {
-            const {
-              statusCode: s,
-              statusCode: i,
-              headers: o,
-              body: r,
-              bodyBytes: a
-            } = t;
-            e(null, {
-              status: s,
-              statusCode: i,
-              headers: o,
-              body: r,
-              bodyBytes: a
-            }, r, a);
-          }, t => e(t && t.error || "UndefinedError"));
-          break;
-        case "Node.js":
-          let i = require("iconv-lite");
-          this.initGotEnv(t);
-          const {
-            url: o,
-            ...r
-          } = t;
-          this.got[s](o, r).then(t => {
-            const {
-                statusCode: s,
-                statusCode: o,
-                headers: r,
-                rawBody: a
-              } = t,
-              n = i.decode(a, this.encoding);
-            e(null, {
-              status: s,
-              statusCode: o,
-              headers: r,
-              rawBody: a,
-              body: n
-            }, n);
-          }, t => {
-            const {
-              message: s,
-              response: o
-            } = t;
-            e(s, o, o && i.decode(o.rawBody, this.encoding));
-          });
-          break;
-      }
-    }
-    time(t, e = null) {
-      const s = e ? new Date(e) : new Date();
-      let i = {
-        "M+": s.getMonth() + 1,
-        "d+": s.getDate(),
-        "H+": s.getHours(),
-        "m+": s.getMinutes(),
-        "s+": s.getSeconds(),
-        "q+": Math.floor((s.getMonth() + 3) / 3),
-        S: s.getMilliseconds()
-      };
-      /(y+)/.test(t) && (t = t.replace(RegExp.$1, (s.getFullYear() + "").substr(4 - RegExp.$1.length)));
-      for (let e in i) new RegExp("(" + e + ")").test(t) && (t = t.replace(RegExp.$1, 1 == RegExp.$1.length ? i[e] : ("00" + i[e]).substr(("" + i[e]).length)));
-      return t;
-    }
-    queryStr(t) {
-      let e = "";
-      for (const s in t) {
-        let i = t[s];
-        null != i && "" !== i && ("object" == typeof i && (i = JSON.stringify(i)), e += `${s}=${i}&`);
-      }
-      e = e.substring(0, e.length - 1);
-      return e;
-    }
-    msg(e = t, s = "", i = "", o = {}) {
-      const r = t => {
-        const {
-          $open: e,
-          $copy: s,
-          $media: i,
-          $mediaMime: o
-        } = t;
-        switch (typeof t) {
-          case void 0:
-            return t;
-          case "string":
-            switch (this.getEnv()) {
-              case "Surge":
-              case "Stash":
-              default:
-                return {
-                  url: t
-                };
-              case "Loon":
-              case "Shadowrocket":
-                return t;
-              case "Quantumult X":
-                return {
-                  "open-url": t
-                };
-              case "Node.js":
-                return;
+            this.sendBody = wH;
+            var wl = wK.fk(this.openArgs[1]);
+            var wl = wa(wl, wH);
+            if (wl) {
+              this.openArgs[1] = wl;
+              var wj;
+              var wn = this.__send_headers;
+              for (wj in wx.apply(this, this.openArgs), this.__send_headers = wn) wQ.apply(this, [wj, wn[wj]]);
             }
-          case "object":
-            switch (this.getEnv()) {
-              case "Surge":
-              case "Stash":
-              case "Shadowrocket":
-              default:
+            this.ori_event && this.ori_event.readystatechange && 0 < this.ori_event.readystatechange.length || wK.fv.call(this, "readystatechange", function () {});
+            wh.call(this, wH);
+          };
+          wK.fe = wW.send;
+          wK.fv = wW.addEventListener = function (wH, wl) {
+            this.ori_event || (this.ori_event = {});
+            var wn;
+            var wk;
+            var wq = wl;
+            "readystatechange" != wH ? wl = (wk = wl, function (wI) {
+              if (!this.scene && wk) {
+                wk.call(this, wI);
+              }
+            }) : wl = (wn = wl, function (wI) {
+              if (!this.scene) {
+                var wZ = this.openArgs[1];
+                4 === this.readyState && this.fq && (0, AA.ft)(wZ, location.href) && (wB = this.getAllResponseHeaders()) && -1 < wB.indexOf(wV) && (this.fq = false, wP(wZ, this.getResponseHeader(wV)));
+                if (4 === this.readyState && wK.fI(this.status, this.getResponseHeader("Content-Type"))) {
+                  var wB = "";
+                  try {
+                    wB = wd.get.call(this);
+                  } catch (wX) {}
+                  var wg = this;
+                  wK.fz(wB, function (wY) {
+                    "dySig" == (wg.scene = wY) ? AR.fo.setTimeout(function () {
+                      wK.fj(wg);
+                      wK.fe.call(wg, wg.sendBody);
+                    }) : wK.fC({
+                      type: "xhr",
+                      which: wY,
+                      fZ: wg
+                    });
+                  }, this.openArgs[1], false === this.openArgs[2]);
+                }
+                if (wn && !this.scene) {
+                  wn.call(this, wI);
+                }
+              }
+            });
+            wS.call(this, wH, wl);
+            this.ori_event[wH] || (this.ori_event[wH] = []);
+            this.ori_event[wH].push([wq, wl]);
+          };
+          wK.fJ = wW.removeEventListener = function (wH, wl) {
+            if (this.ori_event) {
+              for (var wj = this.ori_event[wH], wn = wl, wk = 0; wk < wj.length; ++wk) {
+                if (wj[wk][0] == wl) {
+                  wn = wj[wk][1];
+                  wj.splice(wk, 1);
+                  break;
+                }
+              }
+              wU.call(this, wH, wn);
+            }
+          };
+          for (var wr = ["abort", "error", "load", "loadend", "loadstart", "progress", "timeout", "readystatechange"], wC = 0; wC < wr.length; ++wC) {
+            !function (wH) {
+              Object.defineProperty(wW, "on" + wH, {
+                get: function () {
+                  return this.fB ? this.fB["on" + wH] : undefined;
+                },
+                set: function (wl) {
+                  this.fB || (this.fB = {});
+                  if (this.fB["on" + wH]) {
+                    wK.fJ.call(this, wH, this.fB["on" + wH]);
+                    delete this.fB["on" + wH];
+                  }
+                  if (wl) {
+                    wK.fv.call(this, wH, wl);
+                    this.fB["on" + wH] = wl;
+                  }
+                },
+                configurable: true
+              });
+            }(wr[wC]);
+          }
+          Object.defineProperty(wW, "responseType", {
+            get: function () {
+              return "json" != this.__real_responseType ? wm.get.call(this) : "json";
+            },
+            set: function (wH) {
+              this.__real_responseType = wH;
+              wm.set.call(this, "json" == wH ? "text" : wH);
+            },
+            configurable: true
+          });
+          Object.defineProperty(wW, "response", {
+            get: function () {
+              if ("json" != this.__real_responseType) {
+                return wT.get.call(this);
+              }
+              try {
+                return JSON.parse(wd.get.call(this));
+              } catch (wH) {
+                return null;
+              }
+            },
+            configurable: true
+          });
+          Object.defineProperty(wW, "responseText", {
+            get: function () {
+              if ("json" != this.__real_responseType) {
+                return wd.get.call(this);
+              }
+              throw new Error("The value is only accessible if the object's 'responseType' is '' or 'text' (was 'json')");
+            },
+            configurable: true
+          });
+          XMLHttpRequest._waf_hook = true;
+        }
+      },
+      fz: function (wJ, wr, wC, wH) {
+        var wl = (0, AA.fb)(wC);
+        var wj = "";
+        var wn = "";
+        if (!(0, AA.fN)(wl)) {
+          if (wJ && "string" == typeof wJ && -1 < wJ.indexOf("initAli".concat("yunCaptcha")) && /userUserId: ?requestInfo.userUserId/.test(wJ) && -1 < wJ.indexOf("window._w".concat("af_is_mobile"))) {
+            wj = "captcha";
+            wn = "2";
+          } else {
+            if (wJ && "string" == typeof wJ && -1 < wJ.indexOf("appkey:".concat(" \"CF_APP_WAF\", // 应用鏍囪瘑"))) {
+              wj = "captcha";
+            } else {
+              if (wJ && "string" == typeof wJ && -1 < wJ.indexOf("acw_s".concat("c__v2")) && -1 < wJ.indexOf("var arg1")) {
+                wj = "jsclg";
+              } else {
+                if (wJ && "string" == typeof wJ && (0, wc.ff)(wJ)) {
+                  if (-1 < wC.indexOf((0, wc.f8)(wl.host))) {
+                    (0, wc.f7)();
+                  }
+                  return !(wc.f5 > wc.f9 || ((0, wc.f4)(wl), wr("dySig"), 0));
+                }
+              }
+            }
+          }
+          if ("" != wj) {
+            switch (wr(wj), wj) {
+              case "jsclg":
                 {
-                  const r = {};
-                  let a = t.openUrl || t.url || t["open-url"] || e;
-                  a && Object.assign(r, {
-                    action: "open-url",
-                    url: a
-                  });
-                  let n = t["update-pasteboard"] || t.updatePasteboard || s;
-                  if (n && Object.assign(r, {
-                    action: "clipboard",
-                    text: n
-                  }), i) {
-                    let t, e, s;
-                    if (i.startsWith("http")) {
-                      t = i;
-                    } else {
-                      if (i.startsWith("data:")) {
-                        const [t] = i.split(";"),
-                          [, o] = i.split(",");
-                        e = o;
-                        s = t.replace("data:", "");
-                      } else {
-                        e = i;
-                        s = (t => {
-                          const e = {
-                            JVBERi0: "application/pdf",
-                            R0lGODdh: "image/gif",
-                            R0lGODlh: "image/gif",
-                            iVBORw0KGgo: "image/png",
-                            "/9j/": "image/jpg"
-                          };
-                          for (var s in e) if (0 === t.indexOf(s)) {
-                            return e[s];
-                          }
-                          return null;
-                        })(i);
+                  var wk = wJ.split("var arg1='")[1].split("';")[0];
+                  if (40 === wk.length) {
+                    (0, wM.fF)(wk, wC);
+                    wH ? wK.fg() : AR.fo.setTimeout(wK.fg.bind(wK));
+                  } else {
+                    var wq = /<script\sname="aliyunwaf_6a6f5ea8">(.+)?<\/script>/gm.exec(wJ);
+                    var wI = AR.fo.arg1;
+                    AR.fo.arg1 = wk;
+                    AR.fo.nothing2reload10ba = function (wY) {
+                      AR.fo.arg1 = wI;
+                      (0, wE.fS)(wC, wY);
+                      wz.remove();
+                      delete AR.fo.nothing2reload10ba;
+                      wH ? wK.fg() : AR.fo.setTimeout(wK.fg.bind(wK));
+                    };
+                    var wz = AR.fP.createElement("script");
+                    wz.name = "aliyunwaf_6a6f5ea8";
+                    AQ ? wz.innerText = wq[1] : wz.src = "/nfb8ouq4/om6lhs71/109xfjkc";
+                    try {
+                      AT().appendChild(wz);
+                    } catch (wY) {}
+                  }
+                  return true;
+                }
+              case "captcha":
+                {
+                  var wk = "cn";
+                  var wq = "0b72f618-4c1-4aba-9a78-f" + new Date().getTime() + "ba";
+                  var wZ = {};
+                  var wB = /var requestInfo = ({[\s\S]*?});/g.exec(wJ);
+                  if (null !== wB && (wq = (wZ = new Function("return " + wB[1])()).token), "2" === wn) {
+                    if (wZ.region && "sgp" == wZ.region) {
+                      wk = "en";
+                    }
+                    wZ.traceid ? AR.fo._waf_traceid = wZ.traceid : AR.fo._waf_traceid = wK.fX(wJ);
+                  } else {
+                    AR.fo._waf_traceid = wK.fX(wJ);
+                    if (!wK.fH) {
+                      var wg;
+                      var wX = /window.(aliyun_captcha(id|trace)_[0-9a-f]{4}) ='([0-9a-f]+)';/gm;
+                      for (wZ.fY = []; null !== (wg = wX.exec(wJ));) {
+                        if (wg.index === wX.lastIndex) {
+                          wX.lastIndex++;
+                        }
+                        wZ.fY.push(wg[1]);
+                        if (wg[1] && wg[3]) {
+                          AR.fo[wg[1]] = wg[3];
+                        }
                       }
                     }
-                    Object.assign(r, {
-                      "media-url": t,
-                      "media-base64": e,
-                      "media-base64-mime": o ?? s
-                    });
+                    if (-1 < wJ.indexOf("language: \"en\",//语言包，默认中文") || -1 < wJ.indexOf("language: \"en\", //语言包，默认中文")) {
+                      wk = "en";
+                    }
                   }
-                  Object.assign(r, {
-                    "auto-dismiss": t["auto-dismiss"],
-                    sound: t.sound
-                  });
-                  return r;
+                  wK.A0(wq, wk, wn, wZ);
+                  return true;
                 }
-              case "Loon":
-                {
-                  const s = {};
-                  let o = t.openUrl || t.url || t["open-url"] || e;
-                  o && Object.assign(s, {
-                    openUrl: o
-                  });
-                  let r = t.mediaUrl || t["media-url"];
-                  i?.startsWith("http") && (r = i);
-                  r && Object.assign(s, {
-                    mediaUrl: r
-                  });
-                  console.log(JSON.stringify(s));
-                  return s;
-                }
-              case "Quantumult X":
-                {
-                  const o = {};
-                  let r = t["open-url"] || t.url || t.openUrl || e;
-                  r && Object.assign(o, {
-                    "open-url": r
-                  });
-                  let a = t["media-url"] || t.mediaUrl;
-                  i?.startsWith("http") && (a = i);
-                  a && Object.assign(o, {
-                    "media-url": a
-                  });
-                  let n = t["update-pasteboard"] || t.updatePasteboard || s;
-                  n && Object.assign(o, {
-                    "update-pasteboard": n
-                  });
-                  console.log(JSON.stringify(o));
-                  return o;
-                }
-              case "Node.js":
-                return;
             }
-          default:
-            return;
+          }
         }
-      };
-      if (!this.isMute) {
-        switch (this.getEnv()) {
-          case "Surge":
-          case "Loon":
-          case "Stash":
-          case "Shadowrocket":
-          default:
-            $notification.post(e, s, i, r(o));
-            break;
-          case "Quantumult X":
-            $notify(e, s, i, r(o));
-            break;
-          case "Node.js":
-            break;
+        return false;
+      },
+      A1: function () {
+        var wr;
+        var wC;
+        if (AR.fo.fetch) {
+          wr = Request;
+          AR.fo.Request = function (wH, wl) {
+            var wj = new wr(wH, wl);
+            if (wH instanceof wr) {
+              wl = Object.assign(wH.init ? Object.assign({}, wH.init) : {}, wl);
+              wH = wH.input;
+            }
+            wj.input = wH;
+            wj.init = wl;
+            return wj;
+          };
+          wC = fetch;
+          AR.fo.fetch = function () {
+            var wH = arguments[0];
+            var wl = arguments[1];
+            if (wH instanceof wr) {
+              wH = arguments[0].input;
+              wl = arguments[0].init;
+            }
+            null == wl ? wl = {
+              credentials: "same-origin"
+            } : wl.credentials || (wl.credentials = "same-origin");
+            wH = wi(wH = wv(wH));
+            var wj = wK.fk(wH);
+            var wj = wa(wj, wl.body);
+            if (wj) {
+              wH = wj;
+            }
+            return wC.call(this, wH, wl).then(function (wn) {
+              return new Promise(function (wq, wI) {
+                wP(wH, wn.headers.get(wV));
+                wK.fI(wn.status, wn.headers.get("Content-Type")) ? wn.clone().text().then(function (wZ) {
+                  wK.fz(wZ, function (wg) {
+                    "dySig" == wg ? fetch(wH, wl).then(function (wY) {
+                      if (200 <= wY.status && wY.status < 500) {
+                        wq(wY);
+                      }
+                    }).catch(function (wY) {}) : wK.fC({
+                      type: "fetch",
+                      which: wg,
+                      A2: wH,
+                      A3: wl,
+                      A4: function (wY) {
+                        wq(wY);
+                      }
+                    });
+                  }, wH) || wq(wn);
+                }).catch(function (wZ) {
+                  wq(wn);
+                }) : wq(wn);
+              });
+            }).catch(function (wn) {
+              return Promise.reject(wn);
+            });
+          };
+          AR.fo.fetch._waf_hook = true;
         }
+      },
+      fI: function (wJ, wr) {
+        return 200 == wJ && wr && -1 < wr.indexOf("text/html");
+      },
+      A0: function (wJ, wr, wC, wH) {
+        var wj;
+        var wn;
+        var wk = this;
+        function wq(wI, wz, wZ) {
+          setTimeout(function () {
+            var wg;
+            var wX;
+            var wY;
+            AR.fP.getElementById("waf_nc_block") ? (AR.fP.getElementById("waf_nc_block").style.display = "block", wK.fr || (wK.fr = Am("body * {pointer-events:auto!important}")), AT().appendChild(wK.fr), wg = "访问验证", wX = "为保证您的正常访问,请进行如下验证", "en" == wr && (wX = "Please slide to verify that you're not a robot", wg = "Access Verification"), (wY = AR.fP.getElementsByClassName("waf-nc-title")) && (wY[0].innerText = wg), (wY = AR.fP.getElementsByClassName(AR.fo._waf_is_mobile ? "waf-nc-h5-description" : "waf-nc-description")) && (wY[0].innerText = wX), wz ? wZ() : wK.A5(wZ, wI)) : wq(wI);
+          }, 500);
+        }
+        wk.fH || (wk.fH = true, wK.A6(wC), 2 == wC ? (wj = {
+          userId: wH.userId,
+          userUserId: wH.userUserId,
+          SceneId: wH.sceneId,
+          mode: "embed",
+          element: "#nocaptcha",
+          slideStyle: {
+            width: AR.fo._waf_is_mobile ? AR.fo._waf_nc_width : 320,
+            height: AR.fo._waf_is_mobile ? AR.fo._waf_nc_width / 8 : 40
+          },
+          language: wr,
+          immediate: true,
+          success: function (wI) {
+            var wz = {
+              u_atoken: wH.token,
+              u_asig: wI,
+              u_aref: wH.refer
+            };
+            wk.fg(wz);
+          },
+          fail: function (wI) {},
+          getInstance: function (wI) {},
+          verifyType: "1.0",
+          region: wH.region,
+          UserCertifyId: wH.traceid
+        }, wq(wC, AR.fo.initAliyunCaptcha, function () {
+          initAliyunCaptcha(wj);
+        })) : (wn = {
+          renderTo: "#nocaptcha",
+          appkey: "CF_APP_WAF",
+          scene: "register",
+          trans: {
+            key1: "code100",
+            user: "default",
+            aysnc: "1"
+          },
+          token: wJ,
+          language: wr,
+          isEnabled: true,
+          times: 3,
+          success: function (wI) {
+            undefined === wI.token && (wI.token = wJ);
+            if (wH.fY) {
+              for (var wz = 0; wz < wH.fY.length; ++wz) {
+                delete AR.fo[wH.fY[wz]];
+              }
+            }
+            var wZ = {
+              u_atoken: wI.token,
+              u_asession: wI.sessionId,
+              u_asig: wI.sig
+            };
+            wk.fg(wZ);
+          },
+          fail: function (wI) {},
+          error: function (wI) {}
+        }, AR.fo._waf_is_mobile && (wn.scene = "register_h5", wn.width = AR.fo._waf_nc_width), wq(wC, AR.fo.AWSC && AR.fo.AWSC.use, function () {
+          AWSC.use("nc", function (wI, wz) {
+            AR.fo.nc = wz.init(wn);
+          });
+        })), AR.fP.getElementById("waf-nc-traceid") && (AR.fP.getElementById("waf-nc-traceid").innerHTML = ("cn" == wr ? "日志ID: " : "TraceID:") + AR.fo._waf_traceid));
+      },
+      fg: function (wJ) {
+        var wC = this;
+        if (wJ) {
+          var wH = AR.fP.getElementById("nocaptcha");
+          var wl = AR.fP.getElementById("waf_nc_block");
+          if (wl) {
+            wl.style.display = "none";
+          }
+          if (wH) {
+            wH.innerHTML = "";
+          }
+          wC.fH = false;
+          try {
+            wK.fr.remove();
+          } catch (wj) {}
+        } else {
+          wC.fl += 1;
+        }
+        !function wn(wk) {
+          var wq;
+          var wI;
+          var wz;
+          var wZ;
+          var wB;
+          var wg;
+          var wX;
+          if (0 != wk.length) {
+            wq = wk[0];
+            wk.splice(0, 1);
+            "xhr" === wq.type ? (wI = wq.fZ, wg = (wz = wq.fZ).openArgs, wZ = wz.sendBody, wB = wg[1], "captcha" === wq.which && ((wX = wC.fk(wB)).search = wC.A7(wX.search, wJ), wg[1] = wC.A8(wX), wI.fq = true), wK.fj(wz), wI.addEventListener("readystatechange", function (wY) {
+              if (4 === wI.readyState) {
+                wn(wk);
+              }
+            }), wK.fe.call(wI, wZ)) : "fetch" === wq.type && (wB = wq.A2, wg = wq.A3, "object" == wO(wB) && wB.url && wq.A9 ? wB = wq.A9 : "captcha" === wq.which && ((wX = wC.fk(wB)).search = wC.A7(wX.search, wJ), wB = wC.A8(wX)), fetch(wB, wg).then(function (wY) {
+              if (200 <= wY.status && wY.status < 500) {
+                wq.A4(wY);
+              }
+              wn(wk);
+            }).catch(function (wY) {}));
+          }
+        }(wJ ? this.fO : this.fK);
+      },
+      fk: AA.fb,
+      A8: AA.fW,
+      A7: AA.fx,
+      fX: function (wJ) {
+        var wr;
+        var wC;
+        return -1 == (wr = wJ.indexOf("id=\"traceid\"")) ? "" : (wr = wJ.indexOf(": ", wr), wC = wJ.indexOf("</div>", wr), wJ.substring(wr + 2, wC));
+      },
+      Af: function (wJ) {
+        var wC = AR.fo._waf_is_mobile ? (wl = "<div id=\"waf_nc_block\"style=\"display: none;\"><div class=\"waf-nc-h5-mask\"></div><div id=\"WAF_NC_WRAPPER\"class=\"waf-nc-h5-wrapper\"><p class=\"waf-nc-title\">访问验证</p><div class=\"waf-nc-h5-description\">为了您的操作安全，请完成以下验证</div><p id=\"waf-nc-traceid\" class=\"waf-nc-traceid-class\"></p><div id=\"nocaptcha\" data-nc-idx=\"1\"></div></div></div>", wC = function () {
+          try {
+            var wj;
+            var wn = AR.fP.getElementsByName("viewport");
+            return wn && 1 == wn.length && wn[0].content && -1 != wn[0].content.indexOf("initial-scale") ? (wn = wn[0].content.replace(/\s+/g, ""), 0 == (wj = parseFloat(wn.split("initial-scale=")[1].split(",")[0])) ? 1 : 1 / wj) : 1;
+          } catch (wk) {
+            return 1;
+          }
+        }(), AR.fo._waf_nc_width = 300 * wC, "#waf_nc_block * {pointer-events: auto;}#waf_nc_block{position:fixed;_position:absolute;width:100%;height:100%;top:0;bottom:0;left:0;z-index:2000000000;}#waf_nc_block .waf-nc-h5-mask{background:#000;opacity:.5;filter:alpha(opacity=50);width:100%;height:100%}#waf_nc_block #aliyunCaptcha-sliding-slider{background:#ff6a00!important;font-size:" + 16 * wC + "px!important}#waf_nc_block .waf-nc-h5-wrapper{min-height:" + 220 * wC + "px;width:94%;position:absolute;top:20%;left:50%;;margin-left:-47%;padding:5% 1%;background:#fff;border-radius:" + 9 * wC + "px;box-sizing:border-box}#waf_nc_block .waf-nc-title{margin-top:" + +wC + "px;font-size:" + 16 * wC + "px;font-weight:500;color:#1a1a1a;text-align:center}#waf_nc_block .waf-nc-h5-description{margin-top:" + 24 * wC + "px;font-size:" + 12 * wC + "px;color:#595959;text-align:center}#waf_nc_block .waf-nc-traceid-class{margin-top:" + 8 * wC + "px;font-size:" + 12 * wC + "px;color:#999;text-align:center}#waf_nc_block .nc_bg{background:#fff3ea!important}#waf_nc_block .btn_slide{background:#ff6a00!important;border:0!important;color:#fff!important;width:" + 48 * wC + "px!important;height:" + 48 * wC + "px!important;font-size:" + 30 * wC + "px;font-weight:900!important;line-height:" + 48 * wC + "px!important}#waf_nc_block .btn_ok{background:#ff6a00!important;border:0!important;color:#fff!important;width:" + 48 * wC + "px!important;height:" + 48 * wC + "px!important;font-size:" + 30 * wC + "px;font-weight:900!important;line-height:" + 48 * wC + "px!important}#waf_nc_block .nc_scale{background:rgba(241,241,242,1)!important;height:" + 48 * wC + "px!important}#waf_nc_block .nc-lang-cnt{height:" + 48 * wC + "px!important;margin-left:" + 10 * wC + "px!important;line-height:" + 48 * wC + "px!important;font-size:" + 14 * wC + "px!important}#waf_nc_block .nc_wrapper{margin-left: auto;  margin-right: auto;}#waf_nc_block .nc-container #nc_2_wrapper{height:70px}#waf_nc_block #aliyunCaptcha-sliding-text {font-size:" + 15 * wC + "px}!important") : (wl = "<div id=\"waf_nc_block\" style=\"display: none;\">\n    <div class=\"waf-nc-mask\"></div>\n    <div id=\"WAF_NC_WRAPPER\" class=\"waf-nc-wrapper\">\n        <p class=\"waf-nc-title\">访问验证</p>\n        <p class=\"waf-nc-description\">为保证您的正常访问，请进行如下验证。</p>\n        <p id=\"waf-nc-traceid\" class=\"waf-nc-traceid-class\"></p>\n        <div id=\"nocaptcha\"></div>\n    </div>\n</div>\n</div>", "#waf_nc_block * {pointer-events: auto;}\n#waf_nc_block{position:fixed;_position:absolute;width:100%;height:100%;top:0;bottom:0;left:0;z-index:2000000000;}\n#waf_nc_block #aliyunCaptcha-sliding-slider{background:#ff6a00!important}\n#waf_nc_block .aliyunCaptcha-show{margin-left: -24px;}\n#waf_nc_block .waf-nc-mask{background:#000;opacity:.5;filter:alpha(opacity=50);width:100%;height:100%}\n#waf_nc_block .waf-nc-wrapper{min-height:220px;width:348px;text-align:center;position:absolute;top:20%;left:50%;margin-left:-200px;margin-bottom:16px;background:#fff;box-shadow:0 0 10px 0 rgba(0,0,0,0.15)}\n#waf_nc_block .waf-nc-title{margin-top:28px;font-size:24px;font-weight:500;color:#181818;letter-spacing:1.71px;text-align:center}\n#waf_nc_block .waf-nc-description{margin-top:24px;margin-left:24px;font-size:14px;color:#666;text-align:left}\n#waf_nc_block .waf-nc-traceid-class{margin-top:8px;margin-left:24px;font-size:12px;color:#999;text-align:left}\n#nocaptcha{margin-left:24px;margin-top:14px}\n#waf_nc_block .nc_bg{background:#fff3ea!important}\n#waf_nc_block .btn_slide{background:#ff6a00!important;border:0!important;color:#fff!important;width:48px!important;height:48px!important;font-size:30px;font-weight:900!important;line-height:48px!important}\n#waf_nc_block .btn_ok{background:#ff6a00!important;border:0!important;color:#fff!important;width:48px!important;height:48px!important;font-size:30px;font-weight:900!important;line-height:48px!important}\n#waf_nc_block .nc_scale{background:rgba(241,241,242,1)!important;height:48px!important}#waf_nc_block .nc-lang-cnt{height:48px!important;margin-left:10px!important;line-height:48px!important;font-size:14px!important}\n#waf_nc_block .sm-pop-inner{position:relative!important}#waf_nc_block .nc-container #nc_2_wrapper{height:70px!important}");
+        var wH = AR.fP.createElement("div");
+        wH.innerHTML = wl;
+        var wl = Am(wC);
+        AR.fP.body.appendChild(wH.firstChild);
+        AT().appendChild(wl);
+      },
+      A6: function (wJ) {
+        AR.fP.getElementById("waf_nc_block") || wK.Af(wJ);
+      },
+      A5: function (wJ, wr) {
+        var wH = AR.fP.createElement("script");
+        var wl = new Date();
+        var wj = AR.fP.head || AR.fP.getElementsByTagName("head")[0];
+        var wl = wl.getFullYear() + (wl.getMonth() + 1) + wl.getDate() + wl.getHours();
+        2 == wr ? wH.src = "//o.alicdn.com/captcha-frontend/aliyunCaptcha/AliyunCaptcha.js?t=" + wl : wH.src = "//g.alicdn.com/AWSC/AWSC/awsc.js?t=" + wl;
+        if (wJ) {
+          "onload" in wH ? wH.onload = function () {
+            wJ();
+          } : wH.onreadystatechange = function () {
+            if (/loaded|complete/.test(wH.readyState)) {
+              wJ();
+            }
+          };
+        }
+        wj.appendChild(wH);
       }
-      if (!this.isMuteLog) {
-        let t = ["", "==============📣系统通知📣=============="];
-        t.push(e);
-        s && t.push(s);
-        i && t.push(i);
-        console.log(t.join("\n"));
-        this.logs = this.logs.concat(t);
-      }
-    }
-    debug(...t) {
-      this.logLevels[this.logLevel] <= this.logLevels.debug && (t.length > 0 && (this.logs = [...this.logs, ...t]), console.log(`${this.logLevelPrefixs.debug}${t.map(t => t ?? String(t)).join(this.logSeparator)}`));
-    }
-    info(...t) {
-      this.logLevels[this.logLevel] <= this.logLevels.info && (t.length > 0 && (this.logs = [...this.logs, ...t]), console.log(`${this.logLevelPrefixs.info}${t.map(t => t ?? String(t)).join(this.logSeparator)}`));
-    }
-    warn(...t) {
-      this.logLevels[this.logLevel] <= this.logLevels.warn && (t.length > 0 && (this.logs = [...this.logs, ...t]), console.log(`${this.logLevelPrefixs.warn}${t.map(t => t ?? String(t)).join(this.logSeparator)}`));
-    }
-    error(...t) {
-      this.logLevels[this.logLevel] <= this.logLevels.error && (t.length > 0 && (this.logs = [...this.logs, ...t]), console.log(`${this.logLevelPrefixs.error}${t.map(t => t ?? String(t)).join(this.logSeparator)}`));
-    }
-    log(...t) {
-      t.length > 0 && (this.logs = [...this.logs, ...t]);
-      console.log(t.map(t => t ?? String(t)).join(this.logSeparator));
-    }
-    logErr(t, e) {
-      switch (this.getEnv()) {
-        case "Surge":
-        case "Loon":
-        case "Stash":
-        case "Shadowrocket":
-        case "Quantumult X":
-        default:
-          this.log("", `❗️${this.name}, 错误!`, e, t);
-          break;
-        case "Node.js":
-          this.log("", `❗️${this.name}, 错误!`, e, void 0 !== t.message ? t.message : t, t.stack);
-          break;
-      }
-    }
-    wait(t) {
-      return new Promise(e => setTimeout(e, t));
-    }
-    done(t = {}) {
-      const e = (new Date().getTime() - this.startTime) / 1000;
-      switch (this.log("", `🔔${this.name}, 结束! 🕛 ${e} 秒`), this.log(), this.getEnv()) {
-        case "Surge":
-        case "Loon":
-        case "Stash":
-        case "Shadowrocket":
-        case "Quantumult X":
-        default:
-          $done(t);
-          break;
-        case "Node.js":
-          process.exit(1);
-      }
-    }
-  }(t, e);
-}
+    }).fn(), wK.A1(), Ax(function () {
+      AR.fo._waf_body_copy = AR.fP.body;
+    }));
+  }();
+}();
